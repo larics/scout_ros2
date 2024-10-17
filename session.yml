@@ -1,0 +1,14 @@
+name: mbzirc
+root: ./
+startup_window: demo_setup
+pre_window: |
+  # humble
+  scout_ws
+  export UAV_NAMESPACE=scout
+windows:
+  - scout_launch:
+    - ros2 launch scout_base scout_mini_omni_base.launch.py
+  - mavros:
+    - ros2 launch mavros px4.launch
+  - estimation:
+    - ros2 launch uav_ros_estimators estimator_manager.launch.py namespace:=$UAV_NAMESPACE
