@@ -12,7 +12,7 @@ windows:
   - mavros:
     - ros2 launch mavros px4.launch
   - estimation:
-    - ros2 launch uav_ros_estimators estimator_manager.launch.py namespace:=$UAV_NAMESPACE cmd_vel_in:=/cmd_vel mavros_imu_in:=/mavros/imu/data
+    - ros2 launch uav_ros_estimators estimator_manager.launch.py namespace:=$UAV_NAMESPACE cmd_vel_topic:=/cmd_vel mavros_imu_topic:=/mavros/imu/data
   - teleop:
       layout: vertical
       panes:
