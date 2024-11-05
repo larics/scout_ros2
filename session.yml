@@ -7,8 +7,14 @@ pre_window: |
   export UAV_NAMESPACE=scout
 windows:
   - scout_launch:
+    - ip link set up can0 type can bitrate 500000
     - ros2 launch scout_base scout_mini_omni_base.launch.py
   - mavros:
     - ros2 launch mavros px4.launch
   - estimation:
-    - ros2 launch uav_ros_estimators estimator_manager.launch.py namespace:=$UAV_NAMESPACE
+    - ros2 launch uav_ros_estimators estimator_manager.launch.py namespace:=$UAV_NAMESPACE cmd_vel_in:=/cmd_vel mavros_imu_in:=/mavros/imu/data
+  - teleop:
+      layout: vertical
+      panes:
+        - ros2 topic echo /scout/main/odometry | grep -A 20 pose
+        - ros2 run teleop_twist_keyboard teleop_twist_keyboard _refresh_rate:=50.0
