@@ -13,6 +13,8 @@ windows:
     - ros2 launch mavros px4.launch
   - estimation:
     - ros2 launch uav_ros_estimators estimator_manager.launch.py namespace:=$UAV_NAMESPACE cmd_vel_topic:=/cmd_vel mavros_imu_topic:=/mavros/imu/data
+  - camera:
+    - ros2 launch realsense2_camera rs_launch.py depth_module.depth_profile:=640x480x30 depth_module.infra_profile:=640x480x30 rgb_camera.color_profile:=640x480x30
   - teleop:
       layout: vertical
       panes:
