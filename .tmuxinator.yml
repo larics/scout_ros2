@@ -12,11 +12,19 @@ windows:
   - mavros:
     - ros2 launch mavros px4.launch
   - estimation:
-    - ros2 launch uav_ros_estimators estimator_manager.launch.py namespace:=$UAV_NAMESPACE cmd_vel_topic:=/cmd_vel mavros_imu_topic:=/mavros/imu/data
-  - camera:
-    - ros2 launch realsense2_camera rs_launch.py depth_module.depth_profile:=640x480x30 depth_module.infra_profile:=640x480x30 rgb_camera.color_profile:=640x480x30
+    - ros2 launch uav_ros_estimators estimator_manager.launch.py namespace:=$UAV_NAMESPACE cmd_vel_topic:=/cmd_vel mavros_imu_topic:=/mavros/imu/data mavros_gps_raw_fix_topic:=/mavros/global_position/raw/fix mavros_home_topic:=/mavros/home_position/home
+  - camera_lidar:
+      layout: vertical
+      panes:
+        - ros2 launch realsense2_camera rs_launch.py depth_module.depth_profile:=640x480x30 depth_module.infra_profile:=640x480x30 rgb_camera.color_profile:=640x480x30
+        - ros2 launch livox_ros_driver2 rviz_MID360_launch.py
   - teleop:
       layout: vertical
       panes:
         - ros2 topic echo /scout/main/odometry | grep -A 20 pose
         - ros2 run teleop_twist_keyboard teleop_twist_keyboard _refresh_rate:=50.0
+  - tf:
+      layout: vertical
+      panes:
+        - ros2 run tf2_ros static_transform_publisher 0.05 0.35 -0.08 1.57 0 0 base_link camera_link
+        - ros2 run tf2_ros static_transform_publisher 0.05 0.34 0 0 0 -0.7854 base_link livox_frame
