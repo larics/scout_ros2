@@ -16,7 +16,7 @@ windows:
   - camera_lidar:
       layout: vertical
       panes:
-        - ros2 launch realsense2_camera rs_launch.py depth_module.depth_profile:=640x480x30 depth_module.infra_profile:=640x480x30 rgb_camera.color_profile:=640x480x30
+        - ros2 launch realsense2_camera rs_launch.py pointcloud.enable:=true
         - ros2 launch livox_ros_driver2 rviz_MID360_launch.py
   - teleop:
       layout: vertical
@@ -26,5 +26,16 @@ windows:
   - tf:
       layout: vertical
       panes:
-        - ros2 run tf2_ros static_transform_publisher 0.05 0.35 -0.08 1.57 0 0 base_link camera_link
-        - ros2 run tf2_ros static_transform_publisher 0.05 0.34 0 0 0 -0.7854 base_link livox_frame
+        - ros2 run tf2_ros static_transform_publisher 0.375 -0.05 -0.07 0 0 0 base_link camera_link
+        - ros2 run tf2_ros static_transform_publisher 0.34 -0.045 0 -1.57 0 -0.7854 base_link livox_frame
+  - yolo:
+      layout: vertical
+      panes:
+        - ros2 run img_segment segment_node
+        - ros2 run pointcloud_segmentation pointcloud_segmentation
+  - pointcloud_laser:
+    - ros2 launch pointcloud_to_laserscan sample_pointcloud_to_laserscan_launch.py
+  - slam:
+    - ros2 launch slam_toolbox online_async_launch.py
+  - nav:
+    - ros2 launch nav2_bringup navigation_launch.py

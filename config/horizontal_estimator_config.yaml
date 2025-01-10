@@ -1,0 +1,76 @@
+horizontal_estimator:
+
+  active_estimator: "GROUND_TRUTH"
+
+  # List of all the estimator names
+  estimators: ["GROUND_TRUTH", "LORA"]
+
+  # Process covariance matrix for the horizontal estimator
+  Q: [
+    100, 0.0,  0.0,     0.0,   0.0,  0.0,
+    0.0, 1000, 0.0,     0.0,   0.0,  0.0,
+    0.0, 0.0,  10000.0, 0.0,   0.0,  0.0,
+    0,   0.0,  0.0,     100.0, 0.0,  0.0,
+    0.0, 0.0,  0.0,     0.0,   1000, 0.0,
+    0.0, 0.0,  0.0,     0.0,   0.0,  10000.0
+  ]
+
+  model_type: "CONSTANT_VELOCITY"
+  model_a_coefficients: [0.2, 0.2] # Refer to model implementation for coeff meanings
+  model_b_coefficients: [0.17, 0.144]
+
+  # Estimator properties
+  GROUND_TRUTH:
+    fused_measurements: ["gps_raw_fix"]
+    inputs: ["cmd_vel"]
+
+  LORA:
+    fused_measurements: ["lora_pos"]
+    inputs: ["cmd_vel"]
+
+  # Measurement names
+  measurements: ["imu_acc", "gt_pos", "lora_pos", "gps_raw_fix"]
+
+  # Input names
+  inputs: ["cmd_vel", "cmd_acc"]
+
+  # Measurement type: 
+  # POSITION    
+  # VELOCITY
+  # ACCELERATION
+ 
+  # Commmand velocity input
+  cmd_vel:
+    type: "VELOCITY"
+
+  # Command acceleration input
+  cmd_acc:
+    type: "ACCELERATION"
+  
+  # Ground truth measurement
+  gt_pos:
+    type: "POSITION"
+    R: [1.0, 0.0,
+        0.0, 1.0]
+    timeout: 1.0
+
+  # GPS position measurement
+  gps_raw_fix:
+    type: "POSITION"
+    R: [1.0, 0.0,
+        0.0, 1.0]
+    timeout: 1.0
+
+  # IMU acceleration measurement
+  imu_acc:
+    type: "ACCELERATION"
+    R: [100.0, 0.0,
+          0.0, 100.0]
+    timeout: 1.0
+  
+  lora_pos:
+    type: "POSITION"
+    R: [10000.0, 0.0,
+        0.0,  10000.0]
+    timeout: 30.0
+
