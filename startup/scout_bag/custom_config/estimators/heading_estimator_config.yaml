@@ -1,0 +1,62 @@
+heading_estimator:
+
+  active_estimator: "IMU"
+
+  # List of all the estimator names
+  estimators: [ "ODOM", "IMU" ]
+  
+  # Estimator properties
+  ODOM:
+    fused_measurements: ["unused"]
+    inputs: ["cmd_vel"]
+  
+  # Estimator properties
+  IMU:
+    fused_measurements: ["imu_vel", "imu_hdg"]
+    inputs: ["cmd_vel"]
+
+  # Process covariance matrix for the height estimator
+  Q: [10, 0.0,
+    0.0, 100]
+
+  model_type: "CONSTANT_VELOCITY"
+  input_velocity_coefficient: 0.25
+  
+  # All measurement names
+  measurements: [
+    "mag_heading",
+    "imu_vel",
+    "imu_hdg"
+  ]
+ 
+  # All input names
+  inputs: [
+    "cmd_vel",
+    "mavros_hdg_rate"
+  ]
+
+  # Measurement type: 
+  # HEADING
+  # HEADING_RATE
+  
+  # Command velocity input
+  cmd_vel:
+    type: "HEADING_RATE"
+
+  # Mavros command velocity
+  mavros_hdg_rate:
+    type: "HEADING_RATE"
+  
+  # Barometer position measurement
+  mag_heading:
+    type: "HEADING"
+    R: [100.0]
+
+  # IMU acceleration measurement
+  imu_vel:
+    type: "HEADING_RATE"
+    R: [100.0]
+
+  imu_hdg:
+    type: "HEADING"
+    R: [1.0]

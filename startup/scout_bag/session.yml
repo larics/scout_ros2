@@ -1,0 +1,28 @@
+name: scout_bag
+root: ./
+startup_window: estimation
+pre_window: |
+  export UAV_NAMESPACE=debug
+  export BAG_PATH=/root/bags/probotika_sample_bag/probotika_sample_bag.mcap
+windows:
+  - estimation:
+      layout: tiled
+      panes:
+        - ros2 launch uav_ros_estimators estimator_manager.launch.py 
+          namespace:=$UAV_NAMESPACE 
+          horizontal_config:=$(pwd)/custom_config/estimators/horizontal_estimator_config.yaml
+          heading_config:=$(pwd)/custom_config/estimators/heading_estimator_config.yaml
+          general_config:=$(pwd)/custom_config/estimators/general_estimator_config.yaml
+          cmd_vel_topic:=/cmd_vel 
+          mavros_imu_topic:=/mavros/imu/data 
+          use_sim_time:=True
+          # mavros_gps_raw_fix_topic:=/mavros/global_position/raw/fix 
+          # mavros_home_topic:=/mavros/home_position/home
+        - ros2 bag play --clock 100 $BAG_PATH
+  - viz:
+      layout: tiled
+      panes:
+        - sleep 5; rqt --perspective-file custom_config/scout_rqt.perspective
+        - sleep 5; ros2 run plotjuggler plotjuggler --layout $(pwd)/custom_config/scout_plotjuggler.xml
+
+        
