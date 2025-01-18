@@ -19,6 +19,7 @@ windows:
           # mavros_gps_raw_fix_topic:=/mavros/global_position/raw/fix 
           # mavros_home_topic:=/mavros/home_position/home
         - ros2 bag play --clock 100 $BAG_PATH
+        - history -s "ros2 bag record --use-sim-time -s mcap --all"
   - viz:
       layout: tiled
       panes:

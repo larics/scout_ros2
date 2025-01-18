@@ -3,25 +3,26 @@
  <tabbed_widget parent="main_window" name="Main Window">
   <Tab tab_name="tab2" containers="1">
    <Container>
-    <DockSplitter orientation="-" sizes="0.5;0.5" count="2">
+    <DockSplitter count="2" orientation="-" sizes="0.5;0.5">
      <DockArea name="...">
-      <plot mode="XYPlot" flip_y="false" flip_x="false" style="Lines">
-       <range top="9.172824" bottom="-7.531801" right="29.658634" left="-30.557698"/>
+      <plot flip_y="false" mode="XYPlot" flip_x="false" style="Lines">
+       <range bottom="-4.071922" top="0.257388" right="9.444238" left="-6.161929"/>
        <limitY/>
-       <curve color="#1ac938" name="/odom/pose/pose/position/[x;y]" curve_x="/odom/pose/pose/position/x" curve_y="/odom/pose/pose/position/y"/>
-       <curve color="#ff7f0e" name="/debug/main/odometry/pose/pose/position/[x;y]" curve_x="/debug/main/odometry/pose/pose/position/x" curve_y="/debug/main/odometry/pose/pose/position/y"/>
-       <curve color="#f14cc1" name="/mavros/global_position/local/pose/pose/position/[x;y]" curve_x="/mavros/global_position/local/pose/pose/position/x" curve_y="/mavros/global_position/local/pose/pose/position/y"/>
-       <curve color="#f14cc1" name="/debug/debug/est/odom_baro_odom/pose/pose/position/[x;y]" curve_x="/debug/debug/est/odom_baro_odom/pose/pose/position/x" curve_y="/debug/debug/est/odom_baro_odom/pose/pose/position/y"/>
+       <curve color="#1ac938" curve_x="/odom/pose/pose/position/x" name="/odom/pose/pose/position/[x;y]" curve_y="/odom/pose/pose/position/y"/>
+       <curve color="#ff7f0e" curve_x="/debug/main/odometry/pose/pose/position/x" name="/debug/main/odometry/pose/pose/position/[x;y]" curve_y="/debug/main/odometry/pose/pose/position/y"/>
+       <curve color="#f14cc1" curve_x="/mavros/global_position/local/pose/pose/position/x" name="/mavros/global_position/local/pose/pose/position/[x;y]" curve_y="/mavros/global_position/local/pose/pose/position/y"/>
+       <curve color="#f14cc1" curve_x="/debug/debug/est/odom_baro_odom/pose/pose/position/x" name="/debug/debug/est/odom_baro_odom/pose/pose/position/[x;y]" curve_y="/debug/debug/est/odom_baro_odom/pose/pose/position/y"/>
       </plot>
      </DockArea>
      <DockArea name="...">
-      <plot mode="TimeSeries" flip_y="false" flip_x="false" style="Lines">
-       <range top="3.298302" bottom="-3.298491" right="62.081151" left="-30.557698"/>
+      <plot flip_y="false" mode="TimeSeries" flip_x="false" style="Lines">
+       <range bottom="-3.297716" top="3.296263" right="9.491446" left="-6.161929"/>
        <limitY/>
        <curve color="#9467bd" name="/mavros/global_position/local/pose/pose/orientation/yaw"/>
        <curve color="#d62728" name="/odom/pose/pose/orientation/yaw"/>
        <curve color="#17becf" name="/debug/main/odometry/pose/pose/orientation/yaw"/>
        <curve color="#ff7f0e" name="/debug/debug/est/odom_baro_odom/pose/pose/orientation/yaw"/>
+       <curve color="#f14cc1" name="/cmd_vel/angular/z"/>
       </plot>
      </DockArea>
     </DockSplitter>
@@ -34,7 +35,7 @@
  <!-- - - - - - - - - - - - - - - -->
  <Plugins>
   <plugin ID="DataLoad CSV">
-   <parameters delimiter="0" time_axis=""/>
+   <parameters time_axis="" delimiter="0"/>
   </plugin>
   <plugin ID="DataLoad MCAP"/>
   <plugin ID="DataLoad ROS2 bags">
@@ -52,7 +53,7 @@
    <max_array_size value="100"/>
    <boolean_strings_to_number value="true"/>
    <remove_suffix_from_strings value="true"/>
-   <selected_topics value="/cmd_vel;/debug/ar_tag_in;/debug/carrot/status;/debug/cmd_att_topic;/debug/debug/att_cmd;/debug/debug/baro_pos;/debug/debug/est/odom_baro_odom;/debug/debug/est_acc;/debug/debug/heading/cmd_hdg_rate;/debug/debug/heading/est_hdg;/debug/debug/heading/imu_untilted;/debug/debug/heading/mavros_hdg;/debug/debug/heading/movella_imu_untilted;/debug/debug/height_input;/debug/debug/horizontal/lora_filtered;/debug/debug/last_cmd_transformed;/debug/debug/mag_deg;/debug/debug/throttled_gps;/debug/estimators_info;/debug/lora_in;/debug/magfield_in;/debug/main/odometry;/debug/mavros/global_position/home;/debug/mavros/global_position/local;/debug/mavros/imu/static_pressure;/debug/mavros/state;/debug/mavros_gps_raw_fix_topic;/debug/mavros_gps_raw_vel_topic;/debug/odometry/reset_horizontal;/debug/odometry/switch_horizontal;/debug/tf_msg_in;/debug/tracker/status;/debug/uav_cmd_topic;/ground/last_received_measurement;/imu/data;/mavros/global_position/compass_hdg;/mavros/imu/data;/mavros/imu/diff_pressure;/mavros/local_position/velocity_body_cov;/mavros/setpoint_trajectory/desired;/odom;/parameter_events;/rosout;/tf;/clock;/debug/debug/est/imu_baro_imu;/diagnostics;/events/read_split;/events/write_split;/mavros/battery;/mavros/global_position/global;/mavros/global_position/gp_lp_offset;/mavros/global_position/local;/mavros/global_position/raw/fix;/mavros/global_position/raw/gps_vel;/mavros/global_position/raw/satellites;/mavros/global_position/rel_alt;/mavros/imu/data_raw;/mavros/imu/mag;/mavros/imu/static_pressure;/mavros/imu/temperature_baro;/mavros/imu/temperature_imu;/mavros/local_position/accel;/mavros/local_position/odom;/mavros/local_position/pose;/mavros/local_position/pose_cov;/mavros/local_position/velocity_body;/mavros/local_position/velocity_local;/mavros/time_reference;/mavros/wind_estimation;/odometry/debug/att_cmd;/odometry/debug/baro_pos;/odometry/debug/est/mag_baro_ground_truth;/odometry/debug/est/mag_baro_lora;/odometry/debug/est_acc;/odometry/debug/heading/imu_untilted;/odometry/debug/heading/movella_imu_untilted;/odometry/debug/height_input;/odometry/debug/horizontal/lora_filtered;/odometry/debug/mag_deg;/odometry/debug/throttled_gps;/odometry/main/odometry;/scout/debug/att_cmd;/scout/debug/baro_pos;/scout/debug/est/mag_baro_ground_truth;/scout/debug/est/mag_baro_lora;/scout/debug/est_acc;/scout/debug/heading/imu_untilted;/scout/debug/heading/movella_imu_untilted;/scout/debug/height_input;/scout/debug/horizontal/lora_filtered;/scout/debug/mag_deg;/scout/debug/throttled_gps;/scout/main/odometry;/tf_static"/>
+   <selected_topics value="/clock;/cmd_vel;/debug/ar_tag_in;/debug/carrot/status;/debug/cmd_att_topic;/debug/debug/att_cmd;/debug/debug/baro_pos;/debug/debug/est/imu_baro_imu;/debug/debug/est/odom_baro_odom;/debug/debug/est_acc;/debug/debug/heading/cmd_hdg_rate;/debug/debug/heading/est_hdg;/debug/debug/heading/imu_untilted;/debug/debug/heading/mavros_hdg;/debug/debug/heading/movella_imu_untilted;/debug/debug/height_input;/debug/debug/horizontal/lora_filtered;/debug/debug/mag_deg;/debug/debug/throttled_gps;/debug/estimators_info;/debug/lora_in;/debug/magfield_in;/debug/main/odometry;/debug/mavros/global_position/home;/debug/mavros/global_position/local;/debug/mavros/imu/static_pressure;/debug/mavros/state;/debug/mavros_gps_raw_fix_topic;/debug/mavros_gps_raw_vel_topic;/debug/odometry/reset_horizontal;/debug/odometry/switch_horizontal;/debug/tf_msg_in;/debug/tracker/status;/debug/uav_cmd_topic;/diagnostics;/events/read_split;/events/write_split;/ground/last_received_measurement;/imu/data;/mavros/battery;/mavros/global_position/compass_hdg;/mavros/global_position/global;/mavros/global_position/gp_lp_offset;/mavros/global_position/local;/mavros/global_position/raw/fix;/mavros/global_position/raw/gps_vel;/mavros/global_position/raw/satellites;/mavros/global_position/rel_alt;/mavros/imu/data;/mavros/imu/data_raw;/mavros/imu/diff_pressure;/mavros/imu/mag;/mavros/imu/static_pressure;/mavros/imu/temperature_baro;/mavros/imu/temperature_imu;/mavros/local_position/accel;/mavros/local_position/odom;/mavros/local_position/pose;/mavros/local_position/pose_cov;/mavros/local_position/velocity_body;/mavros/local_position/velocity_body_cov;/mavros/local_position/velocity_local;/mavros/setpoint_trajectory/desired;/mavros/time_reference;/mavros/wind_estimation;/odom;/odometry/debug/att_cmd;/odometry/debug/baro_pos;/odometry/debug/est/mag_baro_ground_truth;/odometry/debug/est/mag_baro_lora;/odometry/debug/est_acc;/odometry/debug/heading/imu_untilted;/odometry/debug/heading/movella_imu_untilted;/odometry/debug/height_input;/odometry/debug/horizontal/lora_filtered;/odometry/debug/mag_deg;/odometry/debug/throttled_gps;/odometry/main/odometry;/parameter_events;/rosout;/scout/debug/att_cmd;/scout/debug/baro_pos;/scout/debug/est/mag_baro_ground_truth;/scout/debug/est/mag_baro_lora;/scout/debug/est_acc;/scout/debug/heading/imu_untilted;/scout/debug/heading/movella_imu_untilted;/scout/debug/height_input;/scout/debug/horizontal/lora_filtered;/scout/debug/mag_deg;/scout/debug/throttled_gps;/scout/main/odometry;/tf;/tf_static"/>
   </plugin>
   <plugin ID="UDP Server"/>
   <plugin ID="WebSocket Server"/>

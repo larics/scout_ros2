@@ -16,11 +16,11 @@ heading_estimator:
     inputs: ["cmd_vel"]
 
   # Process covariance matrix for the height estimator
-  Q: [10, 0.0,
-    0.0, 100]
+  Q: [100, 0.0,
+    0.0, 1000]
 
   model_type: "CONSTANT_VELOCITY"
-  input_velocity_coefficient: 0.25
+  input_velocity_coefficient: 0.05
   
   # All measurement names
   measurements: [
