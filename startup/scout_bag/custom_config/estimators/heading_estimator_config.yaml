@@ -7,7 +7,7 @@ heading_estimator:
   
   # Estimator properties
   ODOM:
-    fused_measurements: ["unused"]
+    fused_measurements: ["imu_vel"]
     inputs: ["cmd_vel"]
   
   # Estimator properties
@@ -16,8 +16,8 @@ heading_estimator:
     inputs: ["cmd_vel"]
 
   # Process covariance matrix for the height estimator
-  Q: [100, 0.0,
-    0.0, 1000]
+  Q: [10, 0.0,
+    0.0, 100]
 
   model_type: "CONSTANT_VELOCITY"
   input_velocity_coefficient: 0.05
@@ -59,4 +59,4 @@ heading_estimator:
 
   imu_hdg:
     type: "HEADING"
-    R: [1.0]
+    R: [10.0]

@@ -3,16 +3,16 @@ horizontal_estimator:
   active_estimator: "IMU"
 
   # List of all the estimator names
-  estimators: ["ODOM", "IMU"]
+  estimators: ["ODOM", "IMU", "GPS"]
 
   # Process covariance matrix for the horizontal estimator
   Q: [
-    100, 0.0,  0.0,     0.0,   0.0,  0.0,
-    0.0, 1000, 0.0,     0.0,   0.0,  0.0,
-    0.0, 0.0,  10000.0, 0.0,   0.0,  0.0,
-    0,   0.0,  0.0,     100.0, 0.0,  0.0,
-    0.0, 0.0,  0.0,     0.0,   1000, 0.0,
-    0.0, 0.0,  0.0,     0.0,   0.0,  10000.0
+    1, 0.0,  0.0,     0.0,   0.0,  0.0,
+    0.0, 10, 0.0,     0.0,   0.0,  0.0,
+    0.0, 0.0,  100.0, 0.0,   0.0,  0.0,
+    0,   0.0,  0.0,     1.0, 0.0,  0.0,
+    0.0, 0.0,  0.0,     0.0,   10, 0.0,
+    0.0, 0.0,  0.0,     0.0,   0.0,  100.0
   ]
 
   model_type: "CONSTANT_VELOCITY"
@@ -24,13 +24,16 @@ horizontal_estimator:
     fused_measurements: ["unused"]
     inputs: ["cmd_vel"]
   
-  # Estimator properties
   IMU:
     fused_measurements: ["imu_acc"]
     inputs: ["cmd_vel"]
+  
+  GPS:
+    fused_measurements: ["imu_acc", "gps_raw_fix"]
+    inputs: ["cmd_vel"]
 
   # Measurement names
-  measurements: ["imu_acc", "gt_pos", "lora_pos", "gps_raw_fix"]
+  measurements: ["imu_acc", "gps_raw_fix"]
 
   # Input names
   inputs: ["cmd_vel", "cmd_acc"]
@@ -48,30 +51,16 @@ horizontal_estimator:
   cmd_acc:
     type: "ACCELERATION"
   
-  # Ground truth measurement
-  gt_pos:
-    type: "POSITION"
-    R: [1.0, 0.0,
-        0.0, 1.0]
-    timeout: 1.0
-
   # GPS position measurement
   gps_raw_fix:
     type: "POSITION"
     R: [1.0, 0.0,
         0.0, 1.0]
-    timeout: 1.0
+    timeout: 100.0
 
   # IMU acceleration measurement
   imu_acc:
     type: "ACCELERATION"
     R: [100.0, 0.0,
           0.0, 100.0]
-    timeout: 1.0
-  
-  lora_pos:
-    type: "POSITION"
-    R: [10000.0, 0.0,
-        0.0,  10000.0]
-    timeout: 30.0
-
+    timeout: 100.0

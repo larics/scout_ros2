@@ -16,14 +16,15 @@ windows:
           cmd_vel_topic:=/cmd_vel 
           mavros_imu_topic:=/mavros/imu/data 
           use_sim_time:=True
-          # mavros_gps_raw_fix_topic:=/mavros/global_position/raw/fix 
-          # mavros_home_topic:=/mavros/home_position/home
+          mavros_gps_raw_fix_topic:=/mavros/global_position/raw/fix 
+          mavros_home_topic:=/mavros/home_position/home
         - ros2 bag play --clock 100 $BAG_PATH
         - history -s "ros2 bag record --use-sim-time -s mcap --all"
+        - ./publish_home.sh
   - viz:
       layout: tiled
       panes:
-        - sleep 5; rqt --perspective-file custom_config/scout_rqt.perspective
+        - history -s "rqt --perspective-file custom_config/scout_rqt.perspective"
         - sleep 5; ros2 run plotjuggler plotjuggler --layout $(pwd)/custom_config/scout_plotjuggler.xml
 
         

@@ -5,6 +5,6 @@ gps_fix_stddev: 0.0
 R_variable: false
 
 valid_estimators:
-  heading:    ["ODOM", "IMU"]
-  horizontal: ["ODOM", "IMU"]
-  height:     ["BARO", "BARO"]
+  heading:    ["ODOM", "IMU", "IMU"]
+  horizontal: ["ODOM", "IMU", "GPS"]
+  height:     ["BARO", "BARO", "BARO"]
