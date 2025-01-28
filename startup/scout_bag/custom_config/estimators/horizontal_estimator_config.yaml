@@ -3,7 +3,7 @@ horizontal_estimator:
   active_estimator: "IMU"
 
   # List of all the estimator names
-  estimators: ["ODOM", "IMU", "GPS"]
+  estimators: ["ODOM", "IMU", "GPS", "MOVELLA"]
 
   # Process covariance matrix for the horizontal estimator
   Q: [
@@ -31,9 +31,13 @@ horizontal_estimator:
   GPS:
     fused_measurements: ["imu_acc", "gps_raw_fix"]
     inputs: ["cmd_vel"]
+  
+  MOVELLA:
+    fused_measurements: ["imu_acc", "movella_raw_fix"]
+    inputs: ["cmd_vel"]
 
   # Measurement names
-  measurements: ["imu_acc", "gps_raw_fix"]
+  measurements: ["imu_acc", "gps_raw_fix", "movella_raw_fix"]
 
   # Input names
   inputs: ["cmd_vel", "cmd_acc"]
@@ -53,6 +57,13 @@ horizontal_estimator:
   
   # GPS position measurement
   gps_raw_fix:
+    type: "POSITION"
+    R: [10.0, 0.0,
+        0.0, 10.0]
+    timeout: 100.0
+  
+  # GPS position measurement
+  movella_raw_fix:
     type: "POSITION"
     R: [1.0, 0.0,
         0.0, 1.0]

@@ -4,6 +4,7 @@ startup_window: estimation
 pre_window: |
   export UAV_NAMESPACE=debug
   export BAG_PATH=/root/bags/probotika_sample_bag/probotika_sample_bag.mcap
+  export BAG_PATH=/root/bags/rosbag2_2025_01_23-10_04_09_0.mcap
 windows:
   - estimation:
       layout: tiled
@@ -15,8 +16,10 @@ windows:
           general_config:=$(pwd)/custom_config/estimators/general_estimator_config.yaml
           cmd_vel_topic:=/cmd_vel 
           mavros_imu_topic:=/mavros/imu/data 
+          movella_imu_topic:=/unused
           use_sim_time:=True
           mavros_gps_raw_fix_topic:=/mavros/global_position/raw/fix 
+          movella_gps_raw_fix_topic:=/gnss
           mavros_home_topic:=/mavros/home_position/home
         - ros2 bag play --clock 100 $BAG_PATH
         - history -s "ros2 bag record --use-sim-time -s mcap --all"
