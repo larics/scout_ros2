@@ -11,22 +11,6 @@ def generate_launch_description():
             description='Namespace for sample topics'
         ),
         Node(
-            package='pointcloud_to_laserscan', executable='dummy_pointcloud_publisher',
-            remappings=[('cloud', [LaunchConfiguration(variable_name='scanner'), '/cloud'])],
-            parameters=[{'cloud_frame_id': 'cloud', 'cloud_extent': 2.0, 'cloud_size': 500}],
-            name='cloud_publisher'
-        ),
-        Node(
-            package='tf2_ros',
-            executable='static_transform_publisher',
-            name='static_transform_publisher',
-            arguments=[
-                '--x', '0', '--y', '0', '--z', '0',
-                '--qx', '-0.382684', '--qy', '0', '--qz', '0', '--qw', '0.923879',
-                '--frame-id', 'base_li', '--child-frame-id', 'livox_fr'
-            ]
-        ),
-        Node(
             package='pointcloud_to_laserscan', executable='pointcloud_to_laserscan_node',
             remappings=[('cloud_in', '/livox/lidar'),
                         ('scan', '/scan')],
