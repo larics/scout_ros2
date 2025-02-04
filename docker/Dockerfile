@@ -80,7 +80,7 @@ RUN apt-get install -y ros-humble-tf2-geometry-msgs
 
 # Sensor fusion
 #RUN --mount=type=ssh git clone --branch master git@github.com:larics/sensor_fusion.git
-RUN --mount=type=ssh git clone --branch main git@github.com:larics/uav_ros_estimators.git
+RUN --mount=type=ssh git clone --branch scout git@github.com:larics/uav_ros_estimators.git
 RUN --mount=type=ssh git clone --branch ros2 git@github.com:larics/uav_ros_msgs.git
 RUN --mount=type=ssh git clone --branch humble-dev git@github.com:larics/uav_ros_lib.git
 
