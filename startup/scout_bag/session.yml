@@ -5,6 +5,8 @@ pre_window: |
   export UAV_NAMESPACE=debug
   export BAG_PATH=/root/bags/probotika_sample_bag/probotika_sample_bag.mcap
   export BAG_PATH=/root/bags/rosbag2_2025_01_23-10_04_09_0.mcap
+  export BAG_PATH=/root/bags/skokovi_rosbag2_2025_02_13-12_31_44/rosbag2_2025_02_13-12_31_44_0.mcap
+  # export BAG_PATH=/root/bags/rosbag2_2025_02_05-12_43_53/rosbag2_2025_02_05-12_43_53_0.mcap
 windows:
   - estimation:
       layout: tiled
@@ -28,6 +30,6 @@ windows:
       layout: tiled
       panes:
         - history -s "rqt --perspective-file custom_config/scout_rqt.perspective"
-        - sleep 5; ros2 run plotjuggler plotjuggler --layout $(pwd)/custom_config/scout_plotjuggler.xml
+        - sleep 5; ros2 run plotjuggler plotjuggler --layout $(pwd)/custom_config/scout_plotjuggler_odom.xml
 
         

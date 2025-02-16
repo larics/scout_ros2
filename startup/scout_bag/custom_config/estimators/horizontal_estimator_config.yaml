@@ -1,6 +1,6 @@
 horizontal_estimator:
 
-  active_estimator: "IMU"
+  active_estimator: "GPS"
 
   # List of all the estimator names
   estimators: ["ODOM", "IMU", "GPS", "MOVELLA"]
@@ -17,7 +17,7 @@ horizontal_estimator:
 
   model_type: "CONSTANT_VELOCITY"
   model_a_coefficients: [0.2, 0.2] # Refer to model implementation for coeff meanings
-  model_b_coefficients: [0.17, 0.144]
+  model_b_coefficients: [0.18, 0.18]
 
   # Estimator properties
   ODOM:
