@@ -4,6 +4,7 @@ horizontal_estimator:
 
   # List of all the estimator names
   estimators: ["ODOM", "IMU", "GPS", "MOVELLA"]
+  # estimators: ["MOVELLA"]
 
   # Process covariance matrix for the horizontal estimator
   Q: [

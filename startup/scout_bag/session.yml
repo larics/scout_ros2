@@ -21,7 +21,7 @@ windows:
           movella_imu_topic:=/unused
           use_sim_time:=True
           mavros_gps_raw_fix_topic:=/mavros/global_position/raw/fix 
-          movella_gps_raw_fix_topic:=/gnss
+          movella_gps_raw_fix_topic:=/movella/gnss
           mavros_home_topic:=/mavros/home_position/home
         - ros2 bag play --clock 100 $BAG_PATH
         - history -s "ros2 bag record --use-sim-time -s mcap --all"
@@ -30,6 +30,6 @@ windows:
       layout: tiled
       panes:
         - history -s "rqt --perspective-file custom_config/scout_rqt.perspective"
-        - sleep 5; ros2 run plotjuggler plotjuggler --layout $(pwd)/custom_config/scout_plotjuggler_odom.xml
+        - sleep 5; ros2 run plotjuggler plotjuggler --layout $(pwd)/custom_config/scout_plotjuggler_odom_gps.xml
 
         
