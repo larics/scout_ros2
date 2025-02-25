@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+ <tabbed_widget name="Main Window" parent="main_window">
+  <Tab tab_name="tab2" containers="1">
+   <Container>
+    <DockSplitter orientation="-" sizes="0.5;0.5" count="2">
+     <DockSplitter orientation="|" sizes="0.500239;0.499761" count="2">
+      <DockArea name="...">
+       <plot style="Lines" flip_x="false" flip_y="false" mode="XYPlot">
+        <range bottom="-4.863362" top="5.987356" right="11.022510" left="-7.333134"/>
+        <limitY/>
+        <curve curve_x="/debug/main/odometry/pose/pose/position/x" color="#0e22ff" curve_y="/debug/main/odometry/pose/pose/position/y" name="/debug/main/odometry/pose/pose/position/[x;y]"/>
+        <curve curve_x="/mavros/global_position/local/pose/pose/position/x" color="#4ca281" curve_y="/mavros/global_position/local/pose/pose/position/y" name="/mavros/global_position/local/pose/pose/position/[x;y]"/>
+        <curve curve_x="/debug/debug/est/imu_baro_gps/pose/pose/position/x" color="#ff0036" curve_y="/debug/debug/est/imu_baro_gps/pose/pose/position/y" name="/debug/debug/est/imu_baro_gps/pose/pose/position/[x;y]"/>
+       </plot>
+      </DockArea>
+      <DockArea name="...">
+       <plot style="Lines" flip_x="false" flip_y="false" mode="TimeSeries">
+        <range bottom="-0.881990" top="0.878080" right="89.934677" left="-7.333134"/>
+        <limitY/>
+        <curve color="#f14cc1" name="/debug/debug/cmd_transformed/vector/x"/>
+        <curve color="#17becf" name="/debug/debug/cmd_transformed/vector/y"/>
+       </plot>
+      </DockArea>
+     </DockSplitter>
+     <DockSplitter orientation="|" sizes="0.500239;0.499761" count="2">
+      <DockArea name="...">
+       <plot style="Lines" flip_x="false" flip_y="false" mode="TimeSeries">
+        <range bottom="-0.374872" top="2.897738" right="89.934677" left="-7.333134"/>
+        <limitY/>
+        <curve color="#9467bd" name="/mavros/global_position/local/pose/pose/orientation/yaw"/>
+        <curve color="#d62728" name="/odom/pose/pose/orientation/yaw"/>
+        <curve color="#17becf" name="/debug/main/odometry/pose/pose/orientation/yaw"/>
+        <curve color="#ff7f0e" name="/debug/debug/est/odom_baro_odom/pose/pose/orientation/yaw"/>
+       </plot>
+      </DockArea>
+      <DockArea name="...">
+       <plot style="Lines" flip_x="false" flip_y="false" mode="TimeSeries">
+        <range bottom="-0.743839" top="0.725999" right="89.934677" left="-7.333134"/>
+        <limitY/>
+        <curve color="#9467bd" name="/debug/debug/est/imu_baro_gps/twist/twist/linear/x"/>
+        <curve color="#17becf" name="/debug/debug/est/imu_baro_gps/twist/twist/linear/y"/>
+       </plot>
+      </DockArea>
+     </DockSplitter>
+    </DockSplitter>
+   </Container>
+  </Tab>
+  <currentTabIndex index="0"/>
+ </tabbed_widget>
+ <use_relative_time_offset enabled="1"/>
+ <!-- - - - - - - - - - - - - - - -->
+ <!-- - - - - - - - - - - - - - - -->
+ <Plugins>
+  <plugin ID="DataLoad CSV">
+   <parameters delimiter="0" time_axis=""/>
+  </plugin>
+  <plugin ID="DataLoad MCAP"/>
+  <plugin ID="DataLoad ROS2 bags">
+   <use_header_stamp value="false"/>
+   <discard_large_arrays value="true"/>
+   <max_array_size value="100"/>
+   <boolean_strings_to_number value="true"/>
+   <remove_suffix_from_strings value="true"/>
+   <selected_topics value=""/>
+  </plugin>
+  <plugin ID="DataLoad ULog"/>
+  <plugin ID="ROS2 Topic Subscriber">
+   <use_header_stamp value="false"/>
+   <discard_large_arrays value="true"/>
+   <max_array_size value="100"/>
+   <boolean_strings_to_number value="true"/>
+   <remove_suffix_from_strings value="true"/>
+   <selected_topics value="/clock;/cmd_vel;/debug/ar_tag_in;/debug/carrot/status;/debug/cmd_att_topic;/debug/debug/att_cmd;/debug/debug/baro_pos;/debug/debug/cmd_transformed;/debug/debug/dt;/debug/debug/est/imu_baro_gps;/debug/debug/est/imu_baro_imu;/debug/debug/est/imu_baro_movella;/debug/debug/est/odom_baro_odom;/debug/debug/est_acc;/debug/debug/heading/cmd_hdg_rate;/debug/debug/heading/est_hdg;/debug/debug/heading/imu_untilted;/debug/debug/heading/mavros_hdg;/debug/debug/heading/movella_imu_untilted;/debug/debug/height_input;/debug/debug/horizontal/lora_filtered;/debug/debug/mag_deg;/debug/debug/throttled_gps;/debug/estimators_info;/debug/lora_in;/debug/magfield_in;/debug/main/odometry;/debug/mavros/global_position/local;/debug/mavros/imu/static_pressure;/debug/mavros/state;/debug/mavros_gps_raw_vel_topic;/debug/odometry/reset_horizontal;/debug/odometry/switch_horizontal;/debug/tf_msg_in;/debug/tracker/status;/debug/uav_cmd_topic;/diagnostics;/events/read_split;/events/write_split;/ground/last_received_measurement;/mavros/battery;/mavros/global_position/compass_hdg;/mavros/global_position/global;/mavros/global_position/gp_lp_offset;/mavros/global_position/local;/mavros/global_position/raw/fix;/mavros/global_position/raw/gps_vel;/mavros/global_position/raw/satellites;/mavros/global_position/rel_alt;/mavros/imu/data;/mavros/imu/data_raw;/mavros/imu/diff_pressure;/mavros/imu/mag;/mavros/imu/static_pressure;/mavros/imu/temperature_baro;/mavros/imu/temperature_imu;/mavros/local_position/accel;/mavros/local_position/odom;/mavros/local_position/pose;/mavros/local_position/pose_cov;/mavros/local_position/velocity_body;/mavros/local_position/velocity_body_cov;/mavros/local_position/velocity_local;/mavros/setpoint_trajectory/desired;/mavros/time_reference;/mavros/wind_estimation;/odom;/parameter_events;/rosout;/tf;/tf_static"/>
+  </plugin>
+  <plugin ID="UDP Server"/>
+  <plugin ID="WebSocket Server"/>
+  <plugin ID="ZMQ Subscriber"/>
+  <plugin ID="Fast Fourier Transform"/>
+  <plugin ID="Quaternion to RPY"/>
+  <plugin ID="Reactive Script Editor">
+   <library code="--[[ Helper function to create a series from arrays&#xa;&#xa; new_series: a series previously created with ScatterXY.new(name)&#xa; prefix:     prefix of the timeseries, before the index of the array&#xa; suffix_X:   suffix to complete the name of the series containing the X value. If [nil], use the index of the array.&#xa; suffix_Y:   suffix to complete the name of the series containing the Y value&#xa; timestamp:   usually the tracker_time variable&#xa;              &#xa; Example:&#xa; &#xa; Assuming we have multiple series in the form:&#xa; &#xa;   /trajectory/node.{X}/position/x&#xa;   /trajectory/node.{X}/position/y&#xa;   &#xa; where {N} is the index of the array (integer). We can create a reactive series from the array with:&#xa; &#xa;   new_series = ScatterXY.new(&quot;my_trajectory&quot;) &#xa;   CreateSeriesFromArray( new_series, &quot;/trajectory/node&quot;, &quot;position/x&quot;, &quot;position/y&quot;, tracker_time );&#xa;--]]&#xa;&#xa;function CreateSeriesFromArray( new_series, prefix, suffix_X, suffix_Y, timestamp )&#xa;  &#xa;  --- clear previous values&#xa;  new_series:clear()&#xa;  &#xa;  --- Append points to new_series&#xa;  index = 0&#xa;  while(true) do&#xa;&#xa;    x = index;&#xa;    -- if not nil, get the X coordinate from a series&#xa;    if suffix_X ~= nil then &#xa;      series_x = TimeseriesView.find( string.format( &quot;%s.%d/%s&quot;, prefix, index, suffix_X) )&#xa;      if series_x == nil then break end&#xa;      x = series_x:atTime(timestamp)&#x9; &#xa;    end&#xa;    &#xa;    series_y = TimeseriesView.find( string.format( &quot;%s.%d/%s&quot;, prefix, index, suffix_Y) )&#xa;    if series_y == nil then break end &#xa;    y = series_y:atTime(timestamp)&#xa;    &#xa;    new_series:push_back(x,y)&#xa;    index = index+1&#xa;  end&#xa;end&#xa;&#xa;--[[ Similar to the built-in function GetSeriesNames(), but select only the names with a give prefix. --]]&#xa;&#xa;function GetSeriesNamesByPrefix(prefix)&#xa;  -- GetSeriesNames(9 is a built-in function&#xa;  all_names = GetSeriesNames()&#xa;  filtered_names = {}&#xa;  for i, name in ipairs(all_names)  do&#xa;    -- check the prefix&#xa;    if name:find(prefix, 1, #prefix) then&#xa;      table.insert(filtered_names, name);&#xa;    end&#xa;  end&#xa;  return filtered_names&#xa;end&#xa;&#xa;--[[ Modify an existing series, applying offsets to all their X and Y values&#xa;&#xa; series: an existing timeseries, obtained with TimeseriesView.find(name)&#xa; delta_x: offset to apply to each x value&#xa; delta_y: offset to apply to each y value &#xa;  &#xa;--]]&#xa;&#xa;function ApplyOffsetInPlace(series, delta_x, delta_y)&#xa;  -- use C++ indeces, not Lua indeces&#xa;  for index=0, series:size()-1 do&#xa;    x,y = series:at(index)&#xa;    series:set(index, x + delta_x, y + delta_y)&#xa;  end&#xa;end&#xa;"/>
+   <scripts/>
+  </plugin>
+  <plugin ID="CSV Exporter"/>
+  <plugin ID="ROS2 Topic Re-Publisher"/>
+ </Plugins>
+ <!-- - - - - - - - - - - - - - - -->
+ <previouslyLoaded_Datafiles/>
+ <previouslyLoaded_Streamer name="ROS2 Topic Subscriber"/>
+ <!-- - - - - - - - - - - - - - - -->
+ <customMathEquations/>
+ <snippets/>
+ <!-- - - - - - - - - - - - - - - -->
+</root>
+

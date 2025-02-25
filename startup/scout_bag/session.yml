@@ -5,6 +5,9 @@ pre_window: |
   export UAV_NAMESPACE=debug
   export BAG_PATH=/root/bags/probotika_sample_bag/probotika_sample_bag.mcap
   export BAG_PATH=/root/bags/rosbag2_2025_01_23-10_04_09_0.mcap
+  export BAG_PATH=/root/bags/skokovi_rosbag2_2025_02_13-12_31_44/rosbag2_2025_02_13-12_31_44_0.mcap
+  # export BAG_PATH=/root/bags/rosbag2_2025_02_05-12_43_53/rosbag2_2025_02_05-12_43_53_0.mcap
+  export BAG_PATH=/root/bags/fixed_rosbag2_2025_02_19-14_22_41/rosbag2_2025_02_19-14_22_41_0.mcap
 windows:
   - estimation:
       layout: tiled
@@ -20,6 +23,8 @@ windows:
           use_sim_time:=True
           mavros_gps_raw_fix_topic:=/mavros/global_position/raw/fix 
           movella_gps_raw_fix_topic:=/gnss
+          magfield_topic:=/imu/mag
+          mavros_heading_topic:=/mavros/global_position/compass_hdg
           mavros_home_topic:=/mavros/home_position/home
         - ros2 bag play --clock 100 $BAG_PATH
         - history -s "ros2 bag record --use-sim-time -s mcap --all"
@@ -28,6 +33,6 @@ windows:
       layout: tiled
       panes:
         - history -s "rqt --perspective-file custom_config/scout_rqt.perspective"
-        - sleep 5; ros2 run plotjuggler plotjuggler --layout $(pwd)/custom_config/scout_plotjuggler.xml
+        - sleep 5; ros2 run plotjuggler plotjuggler --layout $(pwd)/custom_config/scout_plotjuggler_odom_gps.xml
 
         

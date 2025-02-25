@@ -1,12 +1,12 @@
-ros2 topic pub -r 1 /debug/mavros/global_position/home mavros_msgs/msg/HomePosition "header:
+ros2 topic pub -r 1 /mavros/home_position/home mavros_msgs/msg/HomePosition "header:
   stamp:
     sec: 0
     nanosec: 0
   frame_id: ''
 geo:
-  latitude: 45.8131964
-  longitude: 16.0392125
-  altitude: 167.2189432965958
+  latitude: 45.8132095
+  longitude: 16.0391788
+  altitude: 169.88895940447213
 position:
   x: 0.0
   y: 0.0

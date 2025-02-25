@@ -1,9 +1,10 @@
 horizontal_estimator:
 
-  active_estimator: "IMU"
+  active_estimator: "GPS"
 
   # List of all the estimator names
   estimators: ["ODOM", "IMU", "GPS", "MOVELLA"]
+  # estimators: ["MOVELLA"]
 
   # Process covariance matrix for the horizontal estimator
   Q: [
@@ -17,7 +18,7 @@ horizontal_estimator:
 
   model_type: "CONSTANT_VELOCITY"
   model_a_coefficients: [0.2, 0.2] # Refer to model implementation for coeff meanings
-  model_b_coefficients: [0.17, 0.144]
+  model_b_coefficients: [0.18, 0.18]
 
   # Estimator properties
   ODOM:
@@ -65,8 +66,8 @@ horizontal_estimator:
   # GPS position measurement
   movella_raw_fix:
     type: "POSITION"
-    R: [1.0, 0.0,
-        0.0, 1.0]
+    R: [10.0, 0.0,
+        0.0, 10.0]
     timeout: 100.0
 
   # IMU acceleration measurement

@@ -3,21 +3,26 @@ heading_estimator:
   active_estimator: "IMU"
 
   # List of all the estimator names
-  estimators: [ "ODOM", "IMU" ]
+  estimators: [ "ODOM", "IMU"]
   
   # Estimator properties
   ODOM:
-    fused_measurements: ["imu_vel"]
+    fused_measurements: ["unused"]
     inputs: ["cmd_vel"]
   
   # Estimator properties
   IMU:
     fused_measurements: ["imu_vel", "imu_hdg"]
     inputs: ["cmd_vel"]
+  
+  # Estimator properties
+  MOVELLA:
+    fused_measurements: ["movella_imu_vel", "movella_imu_hdg"]
+    inputs: ["cmd_vel"]
 
   # Process covariance matrix for the height estimator
-  Q: [10, 0.0,
-    0.0, 100]
+  Q: [100, 0.0,
+    0.0, 1000]
 
   model_type: "CONSTANT_VELOCITY"
   input_velocity_coefficient: 0.05
@@ -55,8 +60,17 @@ heading_estimator:
   # IMU acceleration measurement
   imu_vel:
     type: "HEADING_RATE"
-    R: [100.0]
+    R: [10.0]
 
   imu_hdg:
     type: "HEADING"
+    R: [1.0]
+
+  # IMU acceleration measurement
+  movella_imu_vel:
+    type: "HEADING_RATE"
     R: [10.0]
+
+  movella_imu_hdg:
+    type: "HEADING"
+    R: [1.0]
