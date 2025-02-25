@@ -9,7 +9,7 @@ heading_estimator:
   ODOM:
     fused_measurements: ["unused"]
     inputs: ["cmd_vel"]
-  
+
   # Estimator properties
   IMU:
     fused_measurements: ["imu_vel", "imu_hdg"]
@@ -31,7 +31,9 @@ heading_estimator:
   measurements: [
     "mag_heading",
     "imu_vel",
-    "imu_hdg"
+    "imu_hdg",
+    "movella_imu_hdg",
+    "movella_imu_vel",
   ]
  
   # All input names
@@ -62,14 +64,13 @@ heading_estimator:
     type: "HEADING_RATE"
     R: [10.0]
 
+  movella_imu_vel:
+    type: "HEADING_RATE"
+    R: [100.0]
+
   imu_hdg:
     type: "HEADING"
     R: [1.0]
-
-  # IMU acceleration measurement
-  movella_imu_vel:
-    type: "HEADING_RATE"
-    R: [10.0]
 
   movella_imu_hdg:
     type: "HEADING"

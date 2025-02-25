@@ -38,7 +38,7 @@ horizontal_estimator:
     inputs: ["cmd_vel"]
 
   # Measurement names
-  measurements: ["imu_acc", "gps_raw_fix", "movella_raw_fix"]
+  measurements: ["imu_acc", "gps_raw_fix", "movella_raw_fix", "movella_imu_acc"]
 
   # Input names
   inputs: ["cmd_vel", "cmd_acc"]
@@ -76,3 +76,10 @@ horizontal_estimator:
     R: [100.0, 0.0,
           0.0, 100.0]
     timeout: 100.0
+
+  movella_imu_acc:
+    type: "ACCELERATION"
+    R: [100.0, 0.0,
+          0.0, 100.0]
+    timeout: 1.0
+  
