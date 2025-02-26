@@ -5,37 +5,64 @@ pre_window: |
   # humble
   scout_ws
   export UAV_NAMESPACE=scout
+  export XSENS_NAMESPACE=movella
+  export ROS_DOMAIN_ID=9
 windows:
   - scout_launch:
     - ip link set up can0 type can bitrate 500000
     - ros2 launch scout_base scout_mini_omni_base.launch.py
   - mavros:
     - ros2 launch mavros px4.launch
-  - estimation:
-    - ros2 launch uav_ros_estimators estimator_manager.launch.py namespace:=$UAV_NAMESPACE cmd_vel_topic:=/cmd_vel mavros_imu_topic:=/mavros/imu/data mavros_gps_raw_fix_topic:=/mavros/global_position/raw/fix mavros_home_topic:=/mavros/home_position/home
-  - camera_lidar:
+  - movella:
       layout: vertical
       panes:
-        - ros2 launch realsense2_camera rs_launch.py pointcloud.enable:=true
-        - ros2 launch livox_ros_driver2 rviz_MID360_launch.py
+        - ros2 launch xsens_mti_ros2_driver xsens_mti_node.launch.py
+        - ros2 launch ntrip ntrip_launch.py
+  - estimation:
+      layout: tiled
+      panes:
+        - ros2 launch uav_ros_estimators estimator_manager.launch.py 
+          namespace:=$UAV_NAMESPACE 
+          horizontal_config:=$(pwd)/custom_config/estimators/horizontal_estimator_config.yaml
+          heading_config:=$(pwd)/custom_config/estimators/heading_estimator_config.yaml
+          height_config:=$(pwd)/custom_config/estimators/height_estimator_config.yaml
+          general_config:=$(pwd)/custom_config/estimators/general_estimator_config.yaml
+          cmd_vel_topic:=/cmd_vel 
+          mavros_imu_topic:=/mavros/imu/data 
+          movella_imu_topic:=/imu/data
+          mavros_gps_raw_fix_topic:=/mavros/global_position/raw/fix 
+          movella_gps_raw_fix_topic:=/gnss
+          magfield_topic:=/imu/mag
+          mavros_heading_topic:=/mavros/global_position/compass_hdg
+          mavros_home_topic:=/mavros/home_position/home
+        - bash /root/scout_ros2/startup/scout_bag/publish_home.sh
+#  - camera_lidar:
+#      layout: vertical
+#      panes:
+#        - ros2 launch realsense2_camera rs_launch.py pointcloud.enable:=true
+#        - ros2 launch livox_ros_driver2 rviz_MID360_launch.py
   - teleop:
       layout: vertical
       panes:
         - ros2 topic echo /scout/main/odometry | grep -A 20 pose
         - ros2 run teleop_twist_keyboard teleop_twist_keyboard _refresh_rate:=50.0
-  - tf:
-      layout: vertical
-      panes:
-        - ros2 run tf2_ros static_transform_publisher 0.375 -0.05 -0.07 0 0 0 base_link camera_link
-        - ros2 run tf2_ros static_transform_publisher 0.34 -0.045 0 -1.57 0 -0.7854 base_link livox_frame
-  - yolo:
-      layout: vertical
-      panes:
-        - ros2 run img_segment segment_node
-        - ros2 run pointcloud_segmentation pointcloud_segmentation
-  - pointcloud_laser:
-    - ros2 launch pointcloud_to_laserscan sample_pointcloud_to_laserscan_launch.py
-  - slam:
-    - ros2 launch slam_toolbox online_async_launch.py
-  - nav:
-    - ros2 launch nav2_bringup navigation_launch.py
+  - bag:
+    - cd ~/bags
+#  - optitrack:
+#    - ros2 launch motion_capture_tracking launch.py
+#  - tf:
+#      layout: vertical
+#      panes:
+#        - ros2 run tf2_ros static_transform_publisher 0.375 -0.05 -0.07 0 0 0 base_link camera_link
+#        - ros2 run tf2_ros static_transform_publisher 0.34 -0.045 0 -1.57 0 -0.7854 base_link livox_frame
+#  - yolo:
+#      layout: vertical
+#      panes:
+#        - ros2 run img_segment segment_node
+#        - ros2 run pointcloud_segmentation pointcloud_segmentation
+#  - pointcloud_laser:
+#    - ros2 launch pointcloud_to_laserscan sample_pointcloud_to_laserscan_launch.py
+#  - slam:
+#    - ros2 launch slam_toolbox online_async_launch.py
+#  - nav:
+#    - ros2 launch nav2_bringup navigation_launch.py
