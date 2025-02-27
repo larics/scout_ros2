@@ -45,7 +45,7 @@ windows:
       layout: vertical
       panes:
         - ros2 topic echo /scout/main/odometry | grep -A 20 pose
-        - ros2 run teleop_twist_keyboard teleop_twist_keyboard _refresh_rate:=50.0
+        - ros2 launch teleop_twist_joy teleop-launch.py config_filepath:=$(pwd)/custom_config/joy.config.yaml
   - bag:
     - cd ~/bags
 #  - optitrack:

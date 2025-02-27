@@ -1,0 +1,28 @@
+teleop_twist_joy_node:
+  ros__parameters:
+    # Linear motion axes (X: forward/backward, Y: left/right strafe)
+    axis_linear:
+      x: 1    # Left thumb stick vertical (typical forward/backward)
+      y: 0    # Left thumb stick horizontal (strafing left/right)
+    scale_linear:
+      x: 0.5  # Base speed for forward/backward
+      y: 0.5  # Base speed for left/right strafe
+    scale_linear_turbo:
+      x: 2.0  # Turbo speed for forward/backward
+      y: 2.0  # Turbo speed for left/right strafe
+
+    # Angular motion (rotation)
+    axis_angular:
+      yaw: 3  # Right thumb stick horizontal (rotation)
+    scale_angular:
+      yaw: 1.0  # Rotation speed
+    scale_angular_turbo:
+      yaw: 2.0  # Rotation speed
+
+    # Control buttons
+    enable_button: 4          # Left trigger (safety deadman switch)
+    enable_turbo_button: 5    # Right trigger (turbo boost)
+
+    # Holonomic-specific parameters
+    inverted_reverse: false   # Keep default for omnidirectional
+    publish_stamped_twist: false
