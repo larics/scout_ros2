@@ -1,14 +1,16 @@
 name: scout_bag
 root: ./
-startup_window: estimation
+startup_window: estimation/fixed_rosbag2_2025_02_19-14_22_41/rosbag2_2025_02_19-14_22_41_0.mcap
+  export BAG_PATH=/root/bags/movella_f
 pre_window: |
   export UAV_NAMESPACE=debug
   export BAG_PATH=/root/bags/probotika_sample_bag/probotika_sample_bag.mcap
   export BAG_PATH=/root/bags/rosbag2_2025_01_23-10_04_09_0.mcap
   export BAG_PATH=/root/bags/skokovi_rosbag2_2025_02_13-12_31_44/rosbag2_2025_02_13-12_31_44_0.mcap
   export BAG_PATH=/root/bags/rosbag2_2025_02_05-12_43_53/rosbag2_2025_02_05-12_43_53_0.mcap
-  export BAG_PATH=/root/bags/fixed_rosbag2_2025_02_19-14_22_41/rosbag2_2025_02_19-14_22_41_0.mcap
-  export BAG_PATH=/root/bags/movella_fixed_rosbag2_2025_02_24-13_01_48/rosbag2_2025_02_24-13_01_48_0.mcap
+  export BAG_PATH=/root/bagsixed_rosbag2_2025_02_24-13_01_48/rosbag2_2025_02_24-13_01_48_0.mcap
+  # export BAG_PATH=/root/bags/heading_prvi_rosbag2_2025_02_25-12_56_25/rosbag2_2025_02_25-12_56_25_0.mcap
+  export BAG_PATH=/root/bags/heading_drugi_rosbag2_2025_02_25-12_57_41/rosbag2_2025_02_25-12_57_41_0.mcap
 windows:
   - estimation:
       layout: tiled
