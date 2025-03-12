@@ -23,10 +23,10 @@ windows:
           general_config:=$(pwd)/custom_config/estimators/general_estimator_config.yaml
           cmd_vel_topic:=/cmd_vel 
           mavros_imu_topic:=/mavros/imu/data 
-          movella_imu_topic:=/unused
           use_sim_time:=True
           mavros_gps_raw_fix_topic:=/mavros/global_position/raw/fix 
           movella_gps_raw_fix_topic:=/gnss
+          movella_gps_vector3_topic:=/filter/positionlla_unused
           magfield_topic:=/imu/mag
           movella_imu_topic:=/imu/data
           mavros_heading_topic:=/mavros/global_position/compass_hdg
