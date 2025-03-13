@@ -1,9 +1,9 @@
 heading_estimator:
 
-  active_estimator: "IMU"
+  active_estimator: "MOVELLA"
 
   # List of all the estimator names
-  estimators: [ "ODOM", "IMU"]
+  estimators: [ "ODOM", "IMU", "MOVELLA"]
   
   # Estimator properties
   ODOM:
@@ -66,7 +66,7 @@ heading_estimator:
 
   movella_imu_vel:
     type: "HEADING_RATE"
-    R: [100.0]
+    R: [10.0]
 
   imu_hdg:
     type: "HEADING"
