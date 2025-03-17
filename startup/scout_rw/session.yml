@@ -16,8 +16,8 @@ windows:
   - movella:
       layout: vertical
       panes:
-        - ros2 launch xsens_mti_ros2_driver xsens_mti_node.launch.py
-        - ros2 launch ntrip ntrip_launch.py
+        - ros2 launch xsens_mti_ros2_driver movella_custom.launch.py
+        - ros2 launch ntrip ntrip_custom_launch.py
   - estimation:
       layout: tiled
       panes:
