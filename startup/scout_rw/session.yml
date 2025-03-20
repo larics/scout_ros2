@@ -4,20 +4,22 @@ startup_window: demo_setup
 pre_window: |
   # humble
   scout_ws
-  export UAV_NAMESPACE=scout
-  export XSENS_NAMESPACE=movella
+  export AGV_NAMESPACE=scout
   export ROS_DOMAIN_ID=9
 windows:
   - scout_launch:
     - ip link set up can0 type can bitrate 500000
     - ros2 launch scout_base scout_mini_omni_base.launch.py
   - mavros:
-    - ros2 launch mavros px4.launch
+    - ros2 launch mavros px4.launch namespace:=$AGV_NAMESPACE/mavros
   - movella:
       layout: vertical
       panes:
-        - ros2 launch xsens_mti_ros2_driver movella_custom.launch.py
-        - ros2 launch ntrip ntrip_custom_launch.py
+        - ros2 launch $(pwd)/custom_launch/movella_custom.launch.py 
+          namespace:=$AGV_NAMESPACE
+        - ros2 launch $(pwd)/custom_launch/ntrip_custom_launch.py 
+          ntrip_config:=$(pwd)/custom_config/ntrip_config.yaml
+          namespace:=$AGV_NAMESPACE
   - estimation:
       layout: tiled
       panes:

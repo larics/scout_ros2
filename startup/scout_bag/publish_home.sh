@@ -1,4 +1,4 @@
-ros2 topic pub -r 1 /mavros/home_position/home mavros_msgs/msg/HomePosition "header:
+ros2 topic pub -r 1 /scout/mavros/home_position/home mavros_msgs/msg/HomePosition "header:
   stamp:
     sec: 0
     nanosec: 0
