@@ -1,0 +1,42 @@
+name: mbzirc
+root: ./
+startup_window: demo_setup
+pre_window: |
+  # humble
+  scout_ws
+  export AGV_NAMESPACE=scout
+  export ROS_DOMAIN_ID=9
+windows:
+  - marinero_launch:
+      panes:
+        - ros2 launch marinero_control marinero_control.launch.py
+        - ros2 launch marinero_launch marinero_joystick.launch.py
+  - movella:
+      layout: vertical
+      panes:
+        - ros2 launch $(pwd)/custom_launch/movella_custom.launch.py 
+          namespace:=$AGV_NAMESPACE
+        - ros2 launch $(pwd)/custom_launch/ntrip_custom_launch.py 
+          ntrip_config:=$(pwd)/custom_config/ntrip_config.yaml
+          namespace:=$AGV_NAMESPACE
+  - estimation:
+      layout: tiled
+      panes:
+        - ros2 launch uav_ros_estimators estimator_manager.launch.py 
+          namespace:=$AGV_NAMESPACE 
+          horizontal_config:=$(pwd)/custom_config/estimators/horizontal_estimator_config.yaml
+          heading_config:=$(pwd)/custom_config/estimators/heading_estimator_config.yaml
+          height_config:=$(pwd)/custom_config/estimators/height_estimator_config.yaml
+          general_config:=$(pwd)/custom_config/estimators/general_estimator_config.yaml
+          cmd_vel_topic:=/cmd_vel 
+          mavros_imu_topic:=/mavros/imu/data 
+          mavros_gps_raw_fix_topic:=/mavros/global_position/raw/fix 
+          movella_gps_raw_fix_topic:=/gnss
+          movella_gps_vector3_topic:=/filter/positionlla_unused
+          magfield_topic:=/imu/mag
+          movella_imu_topic:=/imu/data
+          mavros_heading_topic:=/mavros/global_position/compass_hdg
+          mavros_home_topic:=/mavros/home_position/home
+        - bash /root/scout_ros2/startup/scout_bag/publish_home.sh
+  - bag:
+    - cd ~/bags

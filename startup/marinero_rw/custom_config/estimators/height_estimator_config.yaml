@@ -1,0 +1,72 @@
+height_estimator:
+
+  active_estimator: "BARO"
+
+  # List of all the estimator names
+  estimators: [ "BARO" ]
+  
+  # Estimator properties
+  BARO:
+    fused_measurements: ["baro_pos", "baro_vel", "imu_acc"]
+    inputs: ["cmd_vel"]
+
+  # Process covariance matrix for the height estimator
+  Q: [10, 0.0, 0.0, 
+    0.0, 100, 0.0, 
+    0.0, 0.0, 1000]
+
+  model_type: "CONSTANT_ACCELERATION"
+  input_velocity_coefficient: 0.01
+  
+  # All measurement names
+  measurements: [
+    "baro_pos",
+    "baro_vel",
+    "imu_acc", 
+    "movella_imu_acc"
+  ]
+ 
+  # All input names
+  inputs: [
+    "cmd_vel",
+    "cmd_acc",
+    "mavros_climb_rate"
+  ]
+
+  # Measurement type: 
+  # POSITION     
+  # VELOCITY    
+  # ACCELERATION
+  
+  # Command velocity input
+  cmd_vel:
+    type: "VELOCITY"
+  
+  # Command acceleration input
+  cmd_acc:
+    type: "ACCELERATION"
+
+  # Mavros climb_rate input
+  mavros_climb_rate:
+    type: "VELOCITY"
+
+  # Barometer position measurement
+  baro_pos:
+    type: "POSITION"
+    R: [100.0]
+
+  # Barometer velocity measurement
+  baro_vel:
+    type: "VELOCITY"
+    R: [100.0]
+
+  # IMU acceleration measurement
+  imu_acc:
+    type: "ACCELERATION"
+    R: [100.0]
+  
+  # IMU acceleration measurement
+  movella_imu_acc:
+    type: "ACCELERATION"
+    R: [100.0]
+

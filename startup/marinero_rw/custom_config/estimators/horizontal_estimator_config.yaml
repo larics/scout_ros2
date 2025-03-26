@@ -1,0 +1,85 @@
+horizontal_estimator:
+
+  active_estimator: "MOVELLA"
+
+  # List of all the estimator names
+  estimators: ["ODOM", "IMU", "GPS", "MOVELLA"]
+  # estimators: ["MOVELLA"]
+
+  # Process covariance matrix for the horizontal estimator
+  Q: [
+    1, 0.0,  0.0,     0.0,   0.0,  0.0,
+    0.0, 10, 0.0,     0.0,   0.0,  0.0,
+    0.0, 0.0,  100.0, 0.0,   0.0,  0.0,
+    0,   0.0,  0.0,     1.0, 0.0,  0.0,
+    0.0, 0.0,  0.0,     0.0,   10, 0.0,
+    0.0, 0.0,  0.0,     0.0,   0.0,  100.0
+  ]
+
+  model_type: "CONSTANT_VELOCITY"
+  model_a_coefficients: [0.2, 0.2] # Refer to model implementation for coeff meanings
+  model_b_coefficients: [0.18, 0.18]
+
+  # Estimator properties
+  ODOM:
+    fused_measurements: ["unused"]
+    inputs: ["cmd_vel"]
+  
+  IMU:
+    fused_measurements: ["imu_acc"]
+    inputs: ["cmd_vel"]
+  
+  GPS:
+    fused_measurements: ["imu_acc", "gps_raw_fix"]
+    inputs: ["cmd_vel"]
+  
+  MOVELLA:
+    fused_measurements: ["imu_acc", "movella_raw_fix"]
+    inputs: ["cmd_vel"]
+
+  # Measurement names
+  measurements: ["imu_acc", "gps_raw_fix", "movella_raw_fix", "movella_imu_acc"]
+
+  # Input names
+  inputs: ["cmd_vel", "cmd_acc"]
+
+  # Measurement type: 
+  # POSITION    
+  # VELOCITY
+  # ACCELERATION
+ 
+  # Commmand velocity input
+  cmd_vel:
+    type: "VELOCITY"
+
+  # Command acceleration input
+  cmd_acc:
+    type: "ACCELERATION"
+  
+  # GPS position measurement
+  gps_raw_fix:
+    type: "POSITION"
+    R: [10.0, 0.0,
+        0.0, 10.0]
+    timeout: 100.0
+  
+  # GPS position measurement
+  movella_raw_fix:
+    type: "POSITION"
+    R: [20.0, 0.0,
+        0.0, 20.0]
+    timeout: 100.0
+
+  # IMU acceleration measurement
+  imu_acc:
+    type: "ACCELERATION"
+    R: [100.0, 0.0,
+          0.0, 100.0]
+    timeout: 100.0
+
+  movella_imu_acc:
+    type: "ACCELERATION"
+    R: [100.0, 0.0,
+          0.0, 100.0]
+    timeout: 1.0
+  

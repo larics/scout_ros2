@@ -1,0 +1,16 @@
+gps_fix_throttle_period: 0.0
+gps_fix_delay: 0.0
+gps_fix_mean: 0.0
+gps_fix_stddev: 0.0
+R_variable: false
+
+valid_estimators:
+  heading:    ["ODOM", "IMU", "IMU", "MOVELLA"]
+  horizontal: ["ODOM", "IMU", "GPS", "MOVELLA"]
+  height:     ["BARO", "BARO", "BARO", "BARO"]
+
+agv_specific:
+  gps_R_hor_moving: [10.0, 0.0,
+        0.0, 10.0]
+  gps_R_hor_stationary: [200.0, 0.0,
+        0.0, 200.0]

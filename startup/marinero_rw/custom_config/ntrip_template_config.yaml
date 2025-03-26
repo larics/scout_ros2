@@ -1,0 +1,14 @@
+ntrip_client:
+  ros__parameters:
+    host: "203.107.45.154"
+    port: 8002
+    mountpoint: "AUTO"
+    username: "Your_User_Name"
+    password: "Your_Password"
+    nmea_input_rate: 4.0
+    update_rate: 1.0
+    reconnect_delay: 5.0
+    max_reconnect_attempts: 0
+    send_default_gga: True
+    debug: True
+    output_rtcm_details: True
