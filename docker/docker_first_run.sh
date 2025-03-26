@@ -42,7 +42,7 @@ docker run \
   --volume /tmp/.x11-unix:/tmp/.x11-unix \
   --volume $HOME/probotika/bags:/root/bags \
   --volume ~/.ssh/ssh_auth_sock:/ssh-agent \
-  --volume /probotica/install:/root/probotica_ws/install \
+  --volume /probotica/install:/probotica/install \
   --env SSH_AUTH_SOCK=/ssh-agent \
   --env DISPLAY=$DISPLAY \
   --env QT_X11_NO_MITSHM=1 \
