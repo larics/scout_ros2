@@ -125,6 +125,8 @@ RUN apt-get -y upgrade
 RUN /bin/bash -c "source /opt/ros/humble/setup.bash; colcon build"
 #RUN . /opt/ros/humble/setup.bash
 #RUN colcon build
+WORKDIR /root
+RUN git clone git@github.com:larics/scout_ros2.git
 
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 RUN echo "source /root/scout_ws/install/setup.bash" >> ~/.bashrc
