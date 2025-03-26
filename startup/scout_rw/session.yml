@@ -24,7 +24,7 @@ windows:
       layout: tiled
       panes:
         - ros2 launch uav_ros_estimators estimator_manager.launch.py 
-          namespace:=$UAV_NAMESPACE 
+          namespace:=$AGV_NAMESPACE 
           horizontal_config:=$(pwd)/custom_config/estimators/horizontal_estimator_config.yaml
           heading_config:=$(pwd)/custom_config/estimators/heading_estimator_config.yaml
           height_config:=$(pwd)/custom_config/estimators/height_estimator_config.yaml
