@@ -130,13 +130,15 @@ RUN --mount=type=ssh git clone git@github.com:larics/scout_ros2.git
 
 RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 RUN echo "source /root/scout_ws/install/setup.bash" >> ~/.bashrc
-RUN echo "alias probotica_ws='source /root/probotica_ws/install/marinero/setup.bash' && 'source /root/probotica_ws/install/robot_control/setup.bash'" >> ~/.bashrc
+RUN echo "alias probotica_ws='source /probotica/install/marinero/setup.bash'" >> ~/.bashrc
+#RUN echo "alias probotica_ws='source /probotica/install/robot_control/setup.bash'" >> ~/.bashrc
 WORKDIR /root/scout_ws/
 #RUN --mount=type=ssh git clone --branch master git@github.com:mkozlik/scout_startup.git
 
 #WORKDIR /root/scout_ws/scout_startup/
 #RUN chmod +x start.sh
 #WORKDIR /root/scout_ws/
+RUN export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
 # RUN bash /opt/ros/jazzy/lib/mavros/install_geographiclib_datasets.sh
 # Run the container as an interactive shell
