@@ -9,8 +9,11 @@ pre_window: |
 windows:
   - marinero_launch:
       panes:
-        - ros2 launch marinero_control marinero_control.launch.py
         - ros2 launch marinero_launch marinero_joystick.launch.py
+  - battery:
+      panes:
+        - ros2 run varta varta
+        - ros2 topic echo /varta_soc
   - movella:
       layout: vertical
       panes:
@@ -28,15 +31,11 @@ windows:
           heading_config:=$(pwd)/custom_config/estimators/heading_estimator_config.yaml
           height_config:=$(pwd)/custom_config/estimators/height_estimator_config.yaml
           general_config:=$(pwd)/custom_config/estimators/general_estimator_config.yaml
-          cmd_vel_topic:=/cmd_vel 
-          mavros_imu_topic:=/mavros/imu/data 
-          mavros_gps_raw_fix_topic:=/mavros/global_position/raw/fix 
-          movella_gps_raw_fix_topic:=/gnss
-          movella_gps_vector3_topic:=/filter/positionlla_unused
-          magfield_topic:=/imu/mag
-          movella_imu_topic:=/imu/data
-          mavros_heading_topic:=/mavros/global_position/compass_hdg
-          mavros_home_topic:=/mavros/home_position/home
+          movella_gps_raw_fix_topic:=/scout/gnss
+          movella_gps_vector3_topic:=/scout/filter/positionlla_unused
+          magfield_topic:=/scout/imu/mag
+          movella_imu_topic:=/scout/imu/data
+          mavros_home_topic:=/scout/mavros/home_position/home
         - bash /root/scout_ros2/startup/scout_bag/publish_home.sh
   - bag:
     - cd ~/bags
