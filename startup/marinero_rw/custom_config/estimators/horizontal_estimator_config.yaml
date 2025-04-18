@@ -34,7 +34,7 @@ horizontal_estimator:
     inputs: ["cmd_vel"]
   
   MOVELLA:
-    fused_measurements: ["imu_acc", "movella_raw_fix"]
+    fused_measurements: ["movella_imu_acc", "movella_raw_fix"]
     inputs: ["cmd_vel"]
 
   # Measurement names

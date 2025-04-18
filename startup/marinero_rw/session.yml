@@ -5,15 +5,10 @@ pre_window: |
   # humble
   scout_ws
   export AGV_NAMESPACE=scout
-  export ROS_DOMAIN_ID=9
+  export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+  export ROS_DOMAIN_ID=20
+  probotica_ws
 windows:
-  - marinero_launch:
-      panes:
-        - ros2 launch marinero_launch marinero_joystick.launch.py
-  - battery:
-      panes:
-        - ros2 run varta varta
-        - ros2 topic echo /varta_soc
   - movella:
       layout: vertical
       panes:
