@@ -1,7 +1,6 @@
 name: scout_bag
 root: ./
-startup_window: estimation/fixed_rosbag2_2025_02_19-14_22_41/rosbag2_2025_02_19-14_22_41_0.mcap
-  export BAG_PATH=/root/bags/movella_f
+startup_window: estimation
 pre_window: |
   export UAV_NAMESPACE=debug
   export BAG_PATH=/root/bags/probotika_sample_bag/probotika_sample_bag.mcap
@@ -11,6 +10,7 @@ pre_window: |
   export BAG_PATH=/root/bagsixed_rosbag2_2025_02_24-13_01_48/rosbag2_2025_02_24-13_01_48_0.mcap
   # export BAG_PATH=/root/bags/heading_prvi_rosbag2_2025_02_25-12_56_25/rosbag2_2025_02_25-12_56_25_0.mcap
   export BAG_PATH=/root/bags/heading_drugi_rosbag2_2025_02_25-12_57_41/rosbag2_2025_02_25-12_57_41_0.mcap
+  export BAG_PATH=/root/bags/rosbag2_2025_04_18-12_51_58_novo/rosbag2_2025_04_18-12_51_58/rosbag2_2025_04_18-12_51_58_0.mcap
 windows:
   - estimation:
       layout: tiled
@@ -25,12 +25,13 @@ windows:
           mavros_imu_topic:=/mavros/imu/data 
           use_sim_time:=True
           mavros_gps_raw_fix_topic:=/mavros/global_position/raw/fix 
-          movella_gps_raw_fix_topic:=/gnss
-          movella_gps_vector3_topic:=/filter/positionlla_unused
-          magfield_topic:=/imu/mag
-          movella_imu_topic:=/imu/data
+          movella_gps_raw_fix_topic:=/scout/gnss
+          movella_gps_vector3_topic:=/scout/filter/positionlla_unused
+          magfield_topic:=/scout/imu/mag
+          movella_imu_topic:=/scout/imu/data
           mavros_heading_topic:=/mavros/global_position/compass_hdg
           mavros_home_topic:=/mavros/home_position/home
+          odom_cmd_vel_in_topic:=/marinero_control/four_ws_cont/odometry
         - ros2 bag play --clock 100 $BAG_PATH
         - history -s "ros2 bag record --use-sim-time -s mcap --all"
         - ./publish_home.sh

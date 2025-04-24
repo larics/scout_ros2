@@ -25,7 +25,7 @@ heading_estimator:
     0.0, 1000]
 
   model_type: "CONSTANT_VELOCITY"
-  input_velocity_coefficient: 0.05
+  input_velocity_coefficient: 0.01
   
   # All measurement names
   measurements: [
