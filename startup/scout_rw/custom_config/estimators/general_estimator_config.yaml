@@ -14,3 +14,4 @@ agv_specific:
         0.0, 10.0]
   gps_R_hor_stationary: [200.0, 0.0,
         0.0, 200.0]
+  rotating_R_scaling: 1.0

@@ -1,6 +1,6 @@
 heading_estimator:
 
-  active_estimator: "IMU"
+  active_estimator: "MOVELLA"
 
   # List of all the estimator names
   estimators: [ "ODOM", "IMU", "MOVELLA"]
@@ -21,11 +21,11 @@ heading_estimator:
     inputs: ["cmd_vel"]
 
   # Process covariance matrix for the height estimator
-  Q: [100, 0.0,
-    0.0, 1000]
+  Q: [0.1, 0.0,
+    0.0, 10.0]
 
   model_type: "CONSTANT_VELOCITY"
-  input_velocity_coefficient: 0.01
+  input_velocity_coefficient: 0.05
   
   # All measurement names
   measurements: [
