@@ -1,4 +1,4 @@
-name: mbzirc
+name: marinero_localization
 root: ./
 startup_window: demo_setup
 pre_window: |
@@ -31,6 +31,7 @@ windows:
           magfield_topic:=/scout/imu/mag
           movella_imu_topic:=/scout/imu/data
           mavros_home_topic:=/scout/mavros/home_position/home
+          odom_cmd_vel_in_topic:=/marinero_control/four_ws_cont/odometry
         - bash /root/scout_ros2/startup/scout_bag/publish_home.sh
   - bag:
     - cd ~/bags
