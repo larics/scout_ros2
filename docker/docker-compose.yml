@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  scout_ros2_test: # This is the service name, you can customize it
+    image: marinero:localization
+    container_name: marinero_localization
+    tty: true # Equivalent to -t in docker run
+    stdin_open: true # Equivalent to -i in docker run
+    network_mode: "host" # Equivalent to --network host
+    privileged: true # Equivalent to --privileged
+    volumes:
+      - /dev:/dev
+      - /tmp/.x11-unix:/tmp/.x11-unix
+      - ${HOME}/probotika/bags:/root/bags
+      - ${HOME}/.ssh/ssh_auth_sock:/ssh-agent # Note: The script creates a symlink, this directly mounts it.
+      - /probotica/install:/probotica/install # Corrected based on your script's volume mount
+      - /tmp/.docker.xauth:/tmp/.docker.xauth # Mount the Xauth file
+    environment:
+      - SSH_AUTH_SOCK=/ssh-agent
+      - DISPLAY=${DISPLAY} # Passes the host's DISPLAY variable
+      - QT_X11_NO_MITSHM=1
+      - TERM=xterm-256color
+    command: bash -c "./../scout_ros2/startup/marinero_rw/start.sh"
