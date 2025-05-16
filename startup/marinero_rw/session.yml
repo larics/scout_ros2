@@ -6,7 +6,7 @@ pre_window: |
   scout_ws
   export AGV_NAMESPACE=scout
   export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-  export ROS_DOMAIN_ID=20
+  export ROS_DOMAIN_ID=10
   probotica_ws
 windows:
   - movella:
@@ -26,8 +26,8 @@ windows:
           heading_config:=$(pwd)/custom_config/estimators/heading_estimator_config.yaml
           height_config:=$(pwd)/custom_config/estimators/height_estimator_config.yaml
           general_config:=$(pwd)/custom_config/estimators/general_estimator_config.yaml
-          movella_gps_raw_fix_topic:=/scout/gnss
-          movella_gps_vector3_topic:=/scout/filter/positionlla_unused
+          movella_gps_raw_fix_topic:=/scout/gnss_unused
+          movella_gps_vector3_topic:=/scout/filter/positionlla
           magfield_topic:=/scout/imu/mag
           movella_imu_topic:=/scout/imu/data
           mavros_home_topic:=/scout/mavros/home_position/home
