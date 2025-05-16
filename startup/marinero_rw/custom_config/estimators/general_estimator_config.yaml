@@ -13,6 +13,7 @@ valid_estimators:
 agv_specific:
   gps_R_hor_moving: [0.5, 0.0,
         0.0, 0.5]
-  gps_R_hor_stationary: [1000.0, 0.0,
-        0.0, 1000.0]
+  gps_R_hor_stationary: [10000.0, 0.0,
+        0.0, 10000.0]
   rotating_R_scaling: 1.0
+  enable_zupt: false
