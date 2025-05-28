@@ -16,4 +16,4 @@ agv_specific:
   gps_R_hor_stationary: [10000.0, 0.0,
         0.0, 10000.0]
   rotating_R_scaling: 1.0
-  enable_zupt: false
+  enable_zupt: true
