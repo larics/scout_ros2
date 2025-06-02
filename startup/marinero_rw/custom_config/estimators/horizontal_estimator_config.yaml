@@ -91,6 +91,6 @@ horizontal_estimator:
 
   zupt:
     type: "VELOCITY"
-    R: [0.001, 0.0,
-        0.0, 0.001]
+    R: [0.0001, 0.0,
+        0.0, 0.0001]
     timeout: 30.0
