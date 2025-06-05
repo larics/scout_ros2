@@ -32,6 +32,7 @@ windows:
           movella_imu_topic:=/scout/imu/data
           mavros_home_topic:=/scout/mavros/home_position/home
           odom_cmd_vel_in_topic:=/marinero_control/four_ws_cont/odometry
-        - bash /root/scout_ros2/startup/scout_bag/publish_home.sh
+          ar_tag_topic:=/front/enu_robot_pose
+        - bash /root/scout_ros2/startup/scout_bag/publish_home_punat.sh
   - bag:
     - cd ~/bags

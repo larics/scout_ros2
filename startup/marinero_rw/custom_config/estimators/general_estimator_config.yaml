@@ -6,9 +6,9 @@ gps_fix_stddev: 0.0
 R_variable: false
 
 valid_estimators:
-  heading:    ["ODOM", "IMU", "IMU", "MOVELLA"]
-  horizontal: ["ODOM", "IMU", "GPS", "MOVELLA"]
-  height:     ["BARO", "BARO", "BARO", "BARO"]
+  heading:    ["ODOM", "IMU", "IMU", "MOVELLA", "MOVELLA"]
+  horizontal: ["ODOM", "IMU", "GPS", "MOVELLA", "AR_TAG"]
+  height:     ["BARO", "BARO", "BARO", "BARO", "BARO"]
 
 agv_specific:
   gps_R_hor_moving: [0.5, 0.0,

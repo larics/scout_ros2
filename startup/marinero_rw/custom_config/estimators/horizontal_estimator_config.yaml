@@ -3,7 +3,7 @@ horizontal_estimator:
   active_estimator: "MOVELLA"
 
   # List of all the estimator names
-  estimators: ["ODOM", "IMU", "GPS", "MOVELLA"]
+  estimators: ["ODOM", "IMU", "GPS", "MOVELLA", "AR_TAG"]
   # estimators: ["MOVELLA"]
 
   # Process covariance matrix for the horizontal estimator
@@ -37,8 +37,12 @@ horizontal_estimator:
     fused_measurements: ["movella_imu_acc", "movella_raw_fix", "zupt"]
     inputs: ["cmd_vel"]
 
+  AR_TAG:
+    fused_measurements: ["ar_tag"]
+    inputs: ["cmd_vel"]
+
   # Measurement names
-  measurements: ["imu_acc", "gps_raw_fix", "movella_raw_fix", "movella_imu_acc", "zupt"]
+  measurements: ["imu_acc", "gps_raw_fix", "movella_raw_fix", "movella_imu_acc", "zupt", "ar_tag"]
 
   # Input names
   inputs: ["cmd_vel", "cmd_acc"]
@@ -68,6 +72,13 @@ horizontal_estimator:
     type: "POSITION"
     R: [20.0, 0.0,
         0.0, 20.0]
+    timeout: 100.0
+
+  # GPS position measurement
+  ar_tag:
+    type: "POSITION"
+    R: [1.0, 0.0,
+        0.0, 1.0]
     timeout: 100.0
 
   # IMU acceleration measurement
