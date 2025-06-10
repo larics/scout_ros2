@@ -11,8 +11,8 @@ valid_estimators:
   height:     ["BARO", "BARO", "BARO", "BARO", "BARO"]
 
 agv_specific:
-  gps_R_hor_moving: [0.5, 0.0,
-        0.0, 0.5]
+  gps_R_hor_moving: [1.0, 0.0,
+        0.0, 1.0]
   gps_R_hor_stationary: [100000.0, 0.0,
         0.0, 100000.0]
   rotating_R_scaling: 1.0

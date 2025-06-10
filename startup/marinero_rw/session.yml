@@ -17,6 +17,8 @@ windows:
         - ros2 launch $(pwd)/custom_launch/ntrip_custom_launch.py 
           ntrip_config:=$(pwd)/custom_config/ntrip_config.yaml
           namespace:=$AGV_NAMESPACE
+  - mavros:
+        - ros2 launch $(pwd)/custom_launch/px4.launch namespace:=$AGV_NAMESPACE/mavros fcu_url:=/dev/ttyACM3:115200 config_yaml:=$(pwd)/custom_launch/px4_config.yaml
   - estimation:
       layout: tiled
       panes:
@@ -26,13 +28,15 @@ windows:
           heading_config:=$(pwd)/custom_config/estimators/heading_estimator_config.yaml
           height_config:=$(pwd)/custom_config/estimators/height_estimator_config.yaml
           general_config:=$(pwd)/custom_config/estimators/general_estimator_config.yaml
-          movella_gps_raw_fix_topic:=/scout/gnss_unused
+          mavros_imu_topic:=/scout/mavros/imu/data
+          mavros_gps_raw_fix_topic:=/scout/mavros/global_position/global
+          movella_gps_raw_fix_topic:=/scout/gnss
           movella_gps_vector3_topic:=/scout/filter/positionlla
           magfield_topic:=/scout/imu/mag
           movella_imu_topic:=/scout/imu/data
           mavros_home_topic:=/scout/mavros/home_position/home
           odom_cmd_vel_in_topic:=/marinero_control/four_ws_cont/odometry
           ar_tag_topic:=/front/enu_robot_pose
-        - bash /root/scout_ros2/startup/scout_bag/publish_home_punat.sh
+        - bash /root/scout_ros2/startup/scout_bag/publish_home.sh
   - bag:
-    - cd ~/bags
+        - cd ~/bags

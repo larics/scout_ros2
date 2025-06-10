@@ -1,6 +1,6 @@
 horizontal_estimator:
 
-  active_estimator: "MOVELLA"
+  active_estimator: "GPS"
 
   # List of all the estimator names
   estimators: ["ODOM", "IMU", "GPS", "MOVELLA", "AR_TAG"]
