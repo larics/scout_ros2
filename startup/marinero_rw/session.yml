@@ -37,6 +37,12 @@ windows:
           mavros_home_topic:=/scout/mavros/home_position/home
           odom_cmd_vel_in_topic:=/marinero_control/four_ws_cont/odometry
           ar_tag_topic:=/front/enu_robot_pose
-        - bash /root/scout_ros2/startup/scout_bag/publish_home.sh
+        - bash /root/scout_ros2/startup/scout_bag/publish_home_punat.sh
+  - detections:
+      layout: tiled
+      panes:
+        - ros2 run dock_detector dockpeople2laserscan
+        - ros2 run dock_detector dock_detector
+        - ros2 run position_tracker position_tracker_tracking_node
   - bag:
         - cd ~/bags
