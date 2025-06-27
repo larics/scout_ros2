@@ -30,7 +30,7 @@ horizontal_estimator:
     inputs: ["cmd_vel"]
   
   GPS:
-    fused_measurements: ["imu_acc", "gps_raw_fix"]
+    fused_measurements: ["gps_raw_fix"] # "imu_acc", 
     inputs: ["cmd_vel"]
   
   MOVELLA:
