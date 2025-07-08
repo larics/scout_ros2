@@ -21,6 +21,8 @@ RUN apt-get update && apt-get install -y \
     ros-jazzy-rqt* \
     ros-jazzy-nmea-msgs \
     ros-jazzy-mavros-msgs \
+    ros-jazzy-pcl-ros \
+    ros-jazzy-zed-msgs \
     apt-transport-https \
     cmake \
     libasio-dev \
@@ -59,9 +61,13 @@ RUN --mount=type=ssh \
     git clone --branch ros2 git@github.com:larics/uav_ros_msgs.git && \
     git clone --branch humble-dev git@github.com:larics/uav_ros_lib.git && \
     git clone --branch ros2 git@github.com:xsenssupport/Xsens_MTi_ROS_Driver_and_Ntrip_Client.git && \
+    git clone git@github.com:larics/position_tracker.git && \
     cd .. && \
     rosdep update && \
     rosdep install --from-paths src --ignore-src --skip-keys=librealsense2 -r -y && \
+    cd src/ && \
+    git clone git@github.com:larics/dock_detect.git && \
+    cd .. && \
     apt-get -y upgrade && \
     /bin/bash -c "source /opt/ros/jazzy/setup.bash; colcon build" && \
     rm -rf src build log

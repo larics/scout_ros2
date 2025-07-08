@@ -2,7 +2,7 @@ name: marinero_localization
 root: ./
 startup_window: estimation
 pre_window: |
-  export AGV_NAMESPACE=marinero
+  export AGV_NAMESPACE=scout
   export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
   export ROS_DOMAIN_ID=10
 windows:
