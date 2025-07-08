@@ -5,7 +5,7 @@ touch $XAUTH
 xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
 
 CONTAINER_NAME=$1
-[ -z "$CONTAINER_NAME" ] && CONTAINER_NAME=scout_ros2_test
+[ -z "$CONTAINER_NAME" ] && CONTAINER_NAME=localization
 
 ln -sf $SSH_AUTH_SOCK ~/.ssh/ssh_auth_sock
 docker start $CONTAINER_NAME
