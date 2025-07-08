@@ -1,13 +1,10 @@
 name: marinero_localization
 root: ./
-startup_window: demo_setup
+startup_window: estimation
 pre_window: |
-  # humble
-  scout_ws
-  export AGV_NAMESPACE=scout
+  export AGV_NAMESPACE=marinero
   export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
   export ROS_DOMAIN_ID=10
-  probotica_ws
 windows:
   - movella:
       layout: vertical
@@ -28,16 +25,16 @@ windows:
           heading_config:=$(pwd)/custom_config/estimators/heading_estimator_config.yaml
           height_config:=$(pwd)/custom_config/estimators/height_estimator_config.yaml
           general_config:=$(pwd)/custom_config/estimators/general_estimator_config.yaml
-          mavros_imu_topic:=/scout/mavros/imu/data
-          mavros_gps_raw_fix_topic:=/scout/mavros/global_position/global
-          movella_gps_raw_fix_topic:=/scout/gnss
-          movella_gps_vector3_topic:=/scout/filter/positionlla
-          magfield_topic:=/scout/imu/mag
-          movella_imu_topic:=/scout/imu/data
-          mavros_home_topic:=/scout/mavros/home_position/home
+          mavros_imu_topic:=/$AGV_NAMESPACE/mavros/imu/data
+          mavros_gps_raw_fix_topic:=/$AGV_NAMESPACE/mavros/global_position/global
+          movella_gps_raw_fix_topic:=/$AGV_NAMESPACE/gnss
+          movella_gps_vector3_topic:=/$AGV_NAMESPACE/filter/positionlla
+          magfield_topic:=/$AGV_NAMESPACE/imu/mag
+          movella_imu_topic:=/$AGV_NAMESPACE/imu/data
+          mavros_home_topic:=/$AGV_NAMESPACE/mavros/home_position/home
           odom_cmd_vel_in_topic:=/marinero_control/four_ws_cont/odometry
           ar_tag_topic:=/front/enu_robot_pose
-        - bash /root/scout_ros2/startup/scout_bag/publish_home_punat.sh
+        - bash /root/scout_ros2/scripts/publish_home.sh $AGV_NAMESPACE 45.8132095 16.0391788 169.88895940447213 
   - detections:
       layout: tiled
       panes:
