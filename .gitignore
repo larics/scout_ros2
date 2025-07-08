@@ -1,3 +1,4 @@
 yolo*
 .tmuxinator.yml
 __pycache__
+ssh_auth_sock

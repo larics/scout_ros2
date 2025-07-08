@@ -10,11 +10,11 @@ services:
     privileged: true # Equivalent to --privileged
     volumes:
       - /dev:/dev
-      - /tmp/.x11-unix:/tmp/.x11-unix
+      #- /tmp/.x11-unix:/tmp/.x11-unix
       - ${HOME}/probotika/bags:/root/bags
       - ${HOME}/.ssh/ssh_auth_sock:/ssh-agent # Note: The script creates a symlink, this directly mounts it.
       - /probotica/install:/probotica/install # Corrected based on your script's volume mount
-      - /tmp/.docker.xauth:/tmp/.docker.xauth # Mount the Xauth file
+      #- /tmp/.docker.xauth:/tmp/.docker.xauth # Mount the Xauth file
     environment:
       - SSH_AUTH_SOCK=/ssh-agent
       - DISPLAY=${DISPLAY} # Passes the host's DISPLAY variable
