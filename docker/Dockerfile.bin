@@ -1,0 +1,101 @@
+# Use ROS 2 jazzy base image
+FROM ros:jazzy
+
+ARG ROS2_DISTRO=jazzy
+
+# Install necessary tools and dependencies
+RUN apt-get update && apt-get install -y \
+    ros-jazzy-ros-base \
+    python3-colcon-common-extensions \
+    python3-pip \
+    build-essential \
+    git \
+    ros-jazzy-rmw-cyclonedds-cpp \
+    ros-jazzy-navigation2 \
+    ros-jazzy-nav2-bringup \
+    ros-jazzy-navigation2 \
+    ros-jazzy-slam-toolbox \
+    ros-jazzy-tf2-ros \
+    ros-jazzy-tf2-geometry-msgs \
+    ros-jazzy-tf-transformations \
+    ros-jazzy-robot-localization \
+    ros-jazzy-teleop-twist-keyboard \
+    ros-jazzy-mavros \
+    ros-jazzy-librealsense2* \
+    ros-jazzy-realsense2-* \
+    ros-jazzy-plotjuggler-ros \
+    ros-jazzy-rosbag2-storage-mcap \
+    ros-jazzy-rqt* \
+    ros-jazzy-nmea-msgs \
+    ros-jazzy-mavros-msgs \
+    apt-transport-https \
+    cmake \
+    libasio-dev \
+    libtinyxml2-dev \
+    nano \
+    vim \
+    can-utils \
+    iproute2 \
+    net-tools \
+    tmux \
+    tmuxinator \
+    && rm -rf /var/lib/apt/lists/*
+
+# Setup timezone (fix interactive package installation)
+RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone
+#RUN ip link set can0 up type can bitrate 500000
+
+# Agent forwarding during docker build https://stackoverflow.com/questions/43418188/ssh-agent-forwarding-during-docker-build
+# install ssh client and git
+RUN sudo apt-get install openssh-client git
+
+ENV DOCKER_BUILDKIT=1
+RUN apt-get install -y openssh-client
+ENV GIT_SSH_COMMAND="ssh -v" 
+USER root
+
+RUN --mount=type=ssh id=default \
+    mkdir -p -m 0600 ~/.ssh/ && \
+    ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+
+RUN apt-get update
+
+# Set up a workspace
+WORKDIR /root/scout_ws/src
+
+
+# Estimators
+RUN --mount=type=ssh git clone --branch scout git@github.com:larics/uav_ros_estimators.git
+RUN --mount=type=ssh git clone --branch ros2 git@github.com:larics/uav_ros_msgs.git
+RUN --mount=type=ssh git clone --branch humble-dev git@github.com:larics/uav_ros_lib.git
+
+# Xsens Movella packages
+RUN --mount=type=ssh git clone --branch ros2 git@github.com:xsenssupport/Xsens_MTi_ROS_Driver_and_Ntrip_Client.git
+
+
+# Go to workspace and build it
+WORKDIR /root/scout_ws/
+
+# Install dependencies with rosdep
+RUN apt-get update 
+RUN rosdep update 
+RUN rosdep install --from-paths src --ignore-src  --skip-keys=librealsense2 -r -y
+
+RUN apt-get -y upgrade
+
+# Build the workspace
+RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash; colcon build"
+WORKDIR /root
+RUN --mount=type=ssh git clone git@github.com:larics/scout_ros2.git
+
+RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
+RUN echo "source /root/scout_ws/install/setup.bash" >> ~/.bashrc
+RUN echo "alias probotica_ws='source /probotica/install/marinero/setup.bash'" >> ~/.bashrc
+
+RUN export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+
+RUN bash /opt/ros/jazzy/lib/mavros/install_geographiclib_datasets.sh
+
+# Run the container as an interactive shell
+CMD ["bash"]

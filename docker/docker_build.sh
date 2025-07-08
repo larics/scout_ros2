@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DOCKERFILE=Dockerfile
-IMAGE_NAME=scout_ros2_test
+IMAGE_NAME=localization
 
 distro="humble"
 build_args=""
