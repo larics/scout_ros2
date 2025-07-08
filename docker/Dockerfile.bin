@@ -52,33 +52,21 @@ RUN --mount=type=ssh id=default \
     ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 
-RUN apt-get update
-
-# Set up a workspace
+# Set up workspace, clone sources, build, and clean up in a single layer
 WORKDIR /root/scout_ws/src
+RUN --mount=type=ssh \
+    git clone --branch scout git@github.com:larics/uav_ros_estimators.git && \
+    git clone --branch ros2 git@github.com:larics/uav_ros_msgs.git && \
+    git clone --branch humble-dev git@github.com:larics/uav_ros_lib.git && \
+    git clone --branch ros2 git@github.com:xsenssupport/Xsens_MTi_ROS_Driver_and_Ntrip_Client.git && \
+    cd .. && \
+    rosdep update && \
+    rosdep install --from-paths src --ignore-src --skip-keys=librealsense2 -r -y && \
+    apt-get -y upgrade && \
+    /bin/bash -c "source /opt/ros/jazzy/setup.bash; colcon build" && \
+    rm -rf src build log
 
-
-# Estimators
-RUN --mount=type=ssh git clone --branch scout git@github.com:larics/uav_ros_estimators.git
-RUN --mount=type=ssh git clone --branch ros2 git@github.com:larics/uav_ros_msgs.git
-RUN --mount=type=ssh git clone --branch humble-dev git@github.com:larics/uav_ros_lib.git
-
-# Xsens Movella packages
-RUN --mount=type=ssh git clone --branch ros2 git@github.com:xsenssupport/Xsens_MTi_ROS_Driver_and_Ntrip_Client.git
-
-
-# Go to workspace and build it
-WORKDIR /root/scout_ws/
-
-# Install dependencies with rosdep
-RUN apt-get update 
-RUN rosdep update 
-RUN rosdep install --from-paths src --ignore-src  --skip-keys=librealsense2 -r -y
-
-RUN apt-get -y upgrade
-
-# Build the workspace
-RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash; colcon build"
+# Clone the scout_ros2 repository
 WORKDIR /root
 RUN --mount=type=ssh git clone git@github.com:larics/scout_ros2.git
 
