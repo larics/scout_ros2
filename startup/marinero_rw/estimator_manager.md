@@ -199,3 +199,73 @@ general_estimator:
     -   `gps_R_hor_moving` / `gps_R_hor_stationary`: These allow for dynamically changing the GPS measurement covariance (`R` matrix) based on whether the robot is moving or not. This is useful because GPS drift is more significant when the robot is stationary.
     -   `rotating_R_scaling`: A multiplier applied to the measurement covariance `R` for the heading estimator when the robot is rotating. This can be used to temporarily distrust the heading measurement during high-rate turns.
     -   `enable_zupt`: A boolean to enable Zero-velocity UPdaTes (ZUPT). When the robot is stationary, this feature provides a zero-velocity measurement to the filter, which helps to mitigate position and velocity drift.
+
+---
+
+### Services
+
+The Estimator Manager exposes several ROS 2 services for runtime control and estimator management:
+
+| Service Name                | Type                                         | Purpose                                      |
+|-----------------------------|----------------------------------------------|----------------------------------------------|
+| `odometry/reset_height`     | `uav_ros_msgs::srv::ResetHeightEstimator`      | Reset height estimator to a given value      |
+| `odometry/reset_horizontal` | `uav_ros_msgs::srv::ResetHorizontalEstimator`  | Reset horizontal estimator to (x, y)         |
+| `odometry/switch_horizontal`| `uav_ros_msgs::srv::SwitchHorizontalEstimator` | Switch active horizontal estimator           |
+
+#### Service Descriptions
+
+- **`odometry/reset_height`**
+  - **Type:** `uav_ros_msgs::srv::ResetHeightEstimator`
+  - **Purpose:** Reset the height estimator to a specific value (e.g., when the robot is placed on the ground or a new reference is needed). If the active estimator uses barometer data, it also resets the barometer base pressure.
+
+- **`odometry/reset_horizontal`**
+  - **Type:** `uav_ros_msgs::srv::ResetHorizontalEstimator`
+  - **Purpose:** Reset a specific horizontal estimator to a given (x, y) position.
+
+- **`odometry/switch_horizontal`**
+  - **Type:** `uav_ros_msgs::srv::SwitchHorizontalEstimator`
+  - **Purpose:** Switch between different horizontal estimators at runtime (e.g., switching from GPS-based to odometry-based localization). Checks if the estimator exists and if all required sensors are responsive.
+
+---
+
+### GlobalToLocal (GPS to Local Frame Conversion)
+
+The Estimator Manager supports automatic conversion of GPS coordinates (latitude, longitude, altitude) to a local Cartesian (ENU) frame using the **GlobalToLocal** feature. This is essential for fusing GPS data with local odometry and other sensors.
+
+#### How to Use in C++
+
+Below is a minimal C++ example of how to use the GlobalToLocal utility, as in the Estimator Manager:
+
+```cpp
+#include <uav_ros_lib/global_to_local.hpp>
+
+// In your node class:
+tf_util::GlobalToLocal::Ptr global_to_local_;
+
+// In your constructor:
+global_to_local_ = std::make_shared<tf_util::GlobalToLocal>(*this);
+
+// In your GPS fix callback:
+void gpsFixCallback(const sensor_msgs::msg::NavSatFix::SharedPtr msg)
+{
+    // Returns: std::pair<bool, Eigen::Vector3d>
+    auto [home_received, local_pose] = global_to_local_->toLocal(
+        msg->latitude, msg->longitude, msg->altitude);
+
+    if (!home_received) {
+        RCLCPP_WARN(this->get_logger(), "Home position not set yet!");
+        return;
+    }
+
+    // local_pose.x(), local_pose.y(), local_pose.z() are now ENU coordinates in meters
+    RCLCPP_INFO(this->get_logger(), "Local X: %.2f, Y: %.2f, Z: %.2f",
+                local_pose.x(), local_pose.y(), local_pose.z());
+}
+```
+
+#### Under the Hood: GeographicLib
+
+- The conversion from GPS (LLA) to local ENU is performed using the [GeographicLib](https://geographiclib.sourceforge.io/) library under the hood.
+- The home position (origin) is set from the first message received on the home topic.
+- All subsequent GPS fixes are converted to local coordinates relative to this origin.
+- This ensures that all position estimates are consistent and can be fused with other local sensors.
